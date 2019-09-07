@@ -1,8 +1,9 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Provider } from 'react-redux';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import store from './store/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store/store';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 
@@ -22,12 +23,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function App() {
-  return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <AppNavigator />
-      </View>
-    </Provider>
+export default class App extends Component {
+  renderLaoder = () => (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" />
+    </View>
   );
+
+  render() {
+    return (
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={this.renderLaoder()}>
+          <View style={styles.container}>
+            <AppNavigator />
+          </View>
+        </PersistGate>
+      </Provider>
+    );
+  }
 }
