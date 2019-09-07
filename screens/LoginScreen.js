@@ -1,31 +1,44 @@
-import React, { Component } from "react";
-import { Text, StyleSheet, View, Button } from "react-native";
-import InputField from "../components/InputField";
+import React, { Component } from 'react';
+import { Text, StyleSheet, View, Button } from 'react-native';
+import PropTypes from 'prop-types';
+import InputField from '../components/InputField';
+
+const styles = StyleSheet.create({ title: { fontSize: 34 } });
 
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     };
   }
 
+  onChangeHandler = (field, value) => {
+    this.setState({ [field]: value });
+  };
+
   render() {
-    console.log(this.props.navigation);
+    const { navigation } = this.props;
+
     return (
       <View>
-        <Text>Chat</Text>
+        <Text style={styles.title}>Chat</Text>
         <Text>Accedi</Text>
-        <InputField placeHolder="Username" />
+        <InputField placeHolder="Username" name="username" onChangeHandler={this.onChangeHandler} />
         <Button
           title="Accedi"
-          onPress={() => this.props.navigation.navigate("HomeScreen")}
+          onPress={() => {
+            navigation.navigate('HomeScreen');
+            console.log(this.state);
+          }}
         />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+LoginScreen.propTypes = {
+  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+};
