@@ -33,11 +33,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const InputField = ({ placeHolder, name, onChangeHandler, style, secureTextEntry, error }) => {
+const InputField = ({
+  placeHolder,
+  name,
+  onChangeHandler,
+  style,
+  secureTextEntry,
+  error,
+  value,
+}) => {
   return (
     <TextInput
       style={error ? { ...styles.textInputError, ...style } : { ...styles.textInput, ...style }}
       placeholder={placeHolder}
+      value={value}
       placeholderTextColor={error ? Colors.error : '#C7C7CD'}
       onChangeText={text => onChangeHandler(name, text)}
       secureTextEntry={secureTextEntry}
@@ -52,6 +61,7 @@ InputField.propTypes = {
   style: ViewPropTypes.style,
   secureTextEntry: PropTypes.bool,
   error: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 InputField.defaultProps = {

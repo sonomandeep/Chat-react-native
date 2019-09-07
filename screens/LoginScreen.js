@@ -55,7 +55,7 @@ class LoginScreen extends Component {
   };
 
   render() {
-    const { error } = this.state;
+    const { username, password, error } = this.state;
 
     return (
       <View style={styles.container}>
@@ -66,6 +66,7 @@ class LoginScreen extends Component {
             style={styles.marginTop}
             placeHolder="Username"
             name="username"
+            value={username}
             onChangeHandler={this.onChangeHandler}
             error={error}
           />
@@ -73,6 +74,7 @@ class LoginScreen extends Component {
             style={styles.marginTop}
             placeHolder="Password"
             name="password"
+            value={password}
             onChangeHandler={this.onChangeHandler}
             secureTextEntry
             error={error}
