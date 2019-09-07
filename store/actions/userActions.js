@@ -2,6 +2,7 @@ import { login } from '../../utils/api';
 
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());
+  dispatch({ type: 'LOGIN', user: res.data.user });
   return res.data;
 };
 
