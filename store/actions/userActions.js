@@ -1,9 +1,8 @@
 import { login } from '../../utils/api';
 
-export const loginAction = (username, password) => dispatch => {
-  login(username, password)
-    .then(data => dispatch({ type: 'LOGIN', data }))
-    .catch(error => console.log(error));
+export const loginAction = (username, password) => async dispatch => {
+  const res = await login(username.trim(), password.trim());
+  return res.data;
 };
 
 // TODO: Singup

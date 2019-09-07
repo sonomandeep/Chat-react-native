@@ -18,5 +18,3 @@ export const Fonts = {
 };
 
 export const MainStyles = { alignCenter: { alignItems: 'center', alignSelf: 'center' } };
-
-export default MainStyles;

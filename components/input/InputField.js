@@ -17,13 +17,28 @@ const styles = StyleSheet.create({
     // shadowOpacity: 100,
     // shadowRadius: 10,
   },
+  textInputError: {
+    borderColor: Colors.error,
+    borderWidth: 0.5,
+    backgroundColor: Colors.errorBackground,
+    color: Colors.error,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    fontSize: 17,
+    // shadowColor: '#707070',
+    // shadowOffset: { width: 2, height: 4 },
+    // shadowOpacity: 100,
+    // shadowRadius: 10,
+  },
 });
 
-const InputField = ({ placeHolder, name, onChangeHandler, style, secureTextEntry }) => {
+const InputField = ({ placeHolder, name, onChangeHandler, style, secureTextEntry, error }) => {
   return (
     <TextInput
-      style={{ ...styles.textInput, ...style }}
+      style={error ? { ...styles.textInputError, ...style } : { ...styles.textInput, ...style }}
       placeholder={placeHolder}
+      placeholderTextColor={error ? Colors.error : '#C7C7CD'}
       onChangeText={text => onChangeHandler(name, text)}
       secureTextEntry={secureTextEntry}
     />
@@ -36,6 +51,7 @@ InputField.propTypes = {
   onChangeHandler: PropTypes.func.isRequired,
   style: ViewPropTypes.style,
   secureTextEntry: PropTypes.bool,
+  error: PropTypes.bool.isRequired,
 };
 
 InputField.defaultProps = {

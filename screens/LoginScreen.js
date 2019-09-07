@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginAction } from '../store/actions/userActions';
 import InputField from '../components/input/InputField';
-import MainStyles, { Fonts, Colors } from '../style/styles';
+import { MainStyles, Fonts, Colors } from '../style/styles';
 import PrimaryButton from '../components/input/Button';
 
 const styles = StyleSheet.create({
@@ -26,13 +28,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       username: '',
       password: '',
+      error: false,
     };
   }
 
@@ -40,8 +43,19 @@ export default class LoginScreen extends Component {
     this.setState({ [field]: value });
   };
 
+  submit = async () => {
+    const { navigation, login } = this.props;
+    const { username, password } = this.state;
+    const data = await login(username, password);
+    if (data.error) {
+      this.setState({ error: true });
+    } else {
+      navigation.navigate('HomeScreen');
+    }
+  };
+
   render() {
-    const { navigation } = this.props;
+    const { error } = this.state;
 
     return (
       <View style={styles.container}>
@@ -53,6 +67,7 @@ export default class LoginScreen extends Component {
             placeHolder="Username"
             name="username"
             onChangeHandler={this.onChangeHandler}
+            error={error}
           />
           <InputField
             style={styles.marginTop}
@@ -60,14 +75,9 @@ export default class LoginScreen extends Component {
             name="password"
             onChangeHandler={this.onChangeHandler}
             secureTextEntry
+            error={error}
           />
-          <PrimaryButton
-            style={styles.marginTop}
-            text="Accedi"
-            pressHandler={() => {
-              navigation.navigate('HomeScreen');
-            }}
-          />
+          <PrimaryButton style={styles.marginTop} text="Accedi" pressHandler={this.submit} />
         </View>
         <View style={MainStyles.alignCenter}>
           <View style={MainStyles.alignCenter}>
@@ -86,4 +96,10 @@ export default class LoginScreen extends Component {
 
 LoginScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+  login: PropTypes.func.isRequired,
 };
+
+export default connect(
+  null,
+  { login: loginAction }
+)(LoginScreen);
