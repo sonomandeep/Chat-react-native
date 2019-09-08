@@ -46,17 +46,17 @@ class LoginScreen extends Component {
   submit = async () => {
     const { navigation, login } = this.props;
     const { username, password } = this.state;
+    if (!(username.trim() && password.trim())) return;
     const data = await login(username, password);
     if (data.error) {
       this.setState({ error: true });
     } else {
-      navigation.navigate('HomeScreen');
+      navigation.navigate('Home');
     }
   };
 
   render() {
     const { username, password, error } = this.state;
-
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Chat</Text>
