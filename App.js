@@ -8,25 +8,30 @@ import { store, persistor } from './store/store';
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import ChatScreen from './screens/ChatScreen';
 
-const AppStack = createStackNavigator({
-  Home: { screen: HomeScreen },
-});
-
-const AuthSwitch = createSwitchNavigator({
-  LoginScreen,
-});
-
-const AppSwitchNavigator = createSwitchNavigator(
+const AppStack = createStackNavigator(
   {
-    LoadingScreen,
-    App: AppStack,
-    Auth: AuthSwitch,
+    Home: HomeScreen,
+    Chat: ChatScreen,
   },
-  { initialRouteName: 'LoadingScreen' }
+  { initialRouteName: 'Home' }
 );
 
-const AppNavigator = createAppContainer(AppSwitchNavigator);
+const AuthSwitch = createSwitchNavigator({
+  login: LoginScreen,
+});
+
+const AppNavigator = createAppContainer(
+  createSwitchNavigator(
+    {
+      LoadingScreen,
+      App: AppStack,
+      Auth: AuthSwitch,
+    },
+    { initialRouteName: 'LoadingScreen' }
+  )
+);
 
 const styles = StyleSheet.create({
   container: {
