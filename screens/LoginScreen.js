@@ -47,11 +47,17 @@ class LoginScreen extends Component {
     const { navigation, login } = this.props;
     const { username, password } = this.state;
     if (!(username.trim() && password.trim())) return;
-    const data = await login(username, password);
-    if (data.error) {
-      this.setState({ error: true });
-    } else {
-      navigation.navigate('Home');
+
+    let data;
+    try {
+      data = await login(username, password);
+      if (data.error) {
+        this.setState({ error: true });
+      } else {
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      console.log('Errore:', error);
     }
   };
 

@@ -10,13 +10,12 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import ChatScreen from './screens/ChatScreen';
 
-const AppStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Chat: ChatScreen,
+const AppSwitch = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
   },
-  { initialRouteName: 'Home' }
-);
+  Chat: { screen: ChatScreen },
+});
 
 const AuthSwitch = createSwitchNavigator({
   login: LoginScreen,
@@ -26,7 +25,7 @@ const AppNavigator = createAppContainer(
   createSwitchNavigator(
     {
       LoadingScreen,
-      App: AppStack,
+      App: AppSwitch,
       Auth: AuthSwitch,
     },
     { initialRouteName: 'LoadingScreen' }
