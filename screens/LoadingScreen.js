@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ActivityIndicator, StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { MainStyles } from '../style/styles';
 
 function LoadingScreen({ navigation }) {
   const payload = useSelector(state => state.user);
@@ -15,7 +16,7 @@ function LoadingScreen({ navigation }) {
   }, [payload]);
 
   return (
-    <View>
+    <View style={[MainStyles.defaultLayout, MainStyles.alignCenter]}>
       <ActivityIndicator size="large" />
       <StatusBar barStyle="default" />
     </View>

@@ -8,7 +8,7 @@ import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const AppTabBar = createBottomTabNavigator({
-  Home: { screen: HomeScreen },
+  Home: { screen: HomeScreen, navigationOptions: { tabBarLabel: 'Home' } },
   Settings: { screen: SettingsScreen },
 });
 

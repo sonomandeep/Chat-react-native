@@ -6,6 +6,8 @@ export const loginAction = (username, password) => async dispatch => {
   return res.data;
 };
 
+export const logoutAction = () => dispatch => dispatch({ type: 'LOGOUT' });
+
 // TODO: Singup
 export const signupAction = (username, password) => dispatch => {
   login(username, password)
