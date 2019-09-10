@@ -8,7 +8,6 @@ import { MainStyles, Fonts, Colors } from '../style/styles';
 import PrimaryButton from '../components/input/Button';
 
 const styles = StyleSheet.create({
-  container: { width: 300 },
   title: {
     fontSize: Fonts.title.fontSize,
     fontWeight: Fonts.title.fontWeight,
@@ -63,8 +62,9 @@ class LoginScreen extends Component {
 
   render() {
     const { username, password, error } = this.state;
+
     return (
-      <View style={styles.container}>
+      <View style={MainStyles.defaultLayout}>
         <Text style={styles.title}>Chat</Text>
         <Text style={{ ...Fonts.headerTwo }}>Accedi</Text>
         <View>

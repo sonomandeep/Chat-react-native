@@ -17,4 +17,13 @@ export const Fonts = {
   lowContrast: { fontSize: 15, fontWeight: '200', color: Colors.lightGray },
 };
 
-export const MainStyles = { alignCenter: { alignItems: 'center', alignSelf: 'center' } };
+export const MainStyles = {
+  alignCenter: { alignItems: 'center', alignSelf: 'center' },
+  defaultLayout: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: 300,
+  },
+};
