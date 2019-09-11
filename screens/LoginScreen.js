@@ -64,7 +64,7 @@ class LoginScreen extends Component {
     const { username, password, error } = this.state;
 
     return (
-      <View style={MainStyles.defaultLayout}>
+      <View style={[MainStyles.container, MainStyles.alignCenterVertically]}>
         <Text style={styles.title}>Chat</Text>
         <Text style={{ ...Fonts.headerTwo }}>Accedi</Text>
         <View>

@@ -17,6 +17,10 @@ const UsersList = ({ users }) => {
   );
 };
 
-UsersList.propTypes = { users: PropTypes.instanceOf(Array).isRequired };
+UsersList.propTypes = { users: PropTypes.instanceOf(Array) };
+
+UsersList.defaultProps = {
+  users: [],
+};
 
 export default UsersList;

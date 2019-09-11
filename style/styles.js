@@ -24,4 +24,5 @@ export const MainStyles = {
     alignSelf: 'center',
     width: 350,
   },
+  alignCenterVertically: { justifyContent: 'center' },
 };

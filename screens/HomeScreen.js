@@ -24,7 +24,7 @@ class HomeScreen extends Component {
   render() {
     const { users } = this.props;
 
-    return <UsersList users={users} />;
+    return <UsersList users={users || []} />;
   }
 }
 
@@ -37,7 +37,11 @@ HomeScreen.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
   }).isRequired,
-  users: PropTypes.instanceOf(Array).isRequired,
+  users: PropTypes.instanceOf(Array),
+};
+
+HomeScreen.defaultProps = {
+  users: [],
 };
 
 const mapStateToProps = state => ({

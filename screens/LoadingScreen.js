@@ -16,7 +16,7 @@ function LoadingScreen({ navigation }) {
   }, [payload]);
 
   return (
-    <View style={[MainStyles.defaultLayout, MainStyles.alignCenter]}>
+    <View style={[MainStyles.container, MainStyles.alignCenter, MainStyles.alignCenterVertically]}>
       <ActivityIndicator size="large" />
       <StatusBar barStyle="default" />
     </View>
