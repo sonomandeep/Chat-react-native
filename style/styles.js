@@ -19,11 +19,9 @@ export const Fonts = {
 
 export const MainStyles = {
   alignCenter: { alignItems: 'center', alignSelf: 'center' },
-  defaultLayout: {
+  container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignSelf: 'center',
-    justifyContent: 'center',
-    width: 300,
+    width: 350,
   },
 };

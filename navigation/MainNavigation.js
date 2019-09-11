@@ -7,14 +7,37 @@ import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const AppTabBar = createBottomTabNavigator({
-  Home: { screen: HomeScreen, navigationOptions: { tabBarLabel: 'Home' } },
-  Settings: { screen: SettingsScreen },
-});
+const HomeStack = createStackNavigator(
+  {
+    Home: { screen: HomeScreen, navigationOptions: () => ({ title: 'Home' }) },
+    Chat: { screen: ChatScreen, navigationOptions: () => ({ title: 'Chat' }) },
+  },
+  {
+    initialRouteName: 'Home',
+    transitionConfig: () => ({
+      screenInterpolator: sceneProps => {
+        const { layout, position, scene } = sceneProps;
+        const { index } = scene;
 
-const AppStack = createStackNavigator({
-  Home: { screen: AppTabBar, navigationOptions: () => ({ title: 'Home' }) },
-  Chat: { screen: ChatScreen },
+        const translateX = position.interpolate({
+          inputRange: [index - 1, index, index + 1],
+          outputRange: [layout.initWidth, 0, 0],
+        });
+
+        const opacity = position.interpolate({
+          inputRange: [index - 1, index - 0.99, index, index + 0.99, index + 1],
+          outputRange: [0, 1, 1, 0.3, 0],
+        });
+
+        return { opacity, transform: [{ translateX }] };
+      },
+    }),
+  }
+);
+
+const AppTabBar = createBottomTabNavigator({
+  Home: { screen: HomeStack, navigationOptions: { tabBarLabel: 'Home' } },
+  Settings: { screen: SettingsScreen },
 });
 
 const AuthSwitch = createSwitchNavigator({
@@ -25,7 +48,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Loading: LoadingScreen,
-      App: AppStack,
+      App: AppTabBar,
       Auth: AuthSwitch,
     },
     { initialRouteName: 'Loading' }

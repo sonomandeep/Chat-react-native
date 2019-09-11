@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { Colors, Fonts } from '../../style/styles';
 
@@ -28,13 +29,11 @@ const styles = StyleSheet.create({
   hour: { ...Fonts.lowContrast },
 });
 
-const User = ({ data }) => {
+const User = ({ data, navigation }) => {
   const { user, messages } = data;
 
-  console.log('Messaggi', messages[messages.length - 1]);
-
   return (
-    <View style={styles.user}>
+    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('Chat', { messages })}>
       <View style={styles.inner}>
         <View style={styles.left}>
           <Image
@@ -58,7 +57,7 @@ const User = ({ data }) => {
           <Text style={styles.hour}>10 min</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -71,6 +70,9 @@ User.propTypes = {
       username: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-export default User;
+export default withNavigation(User);

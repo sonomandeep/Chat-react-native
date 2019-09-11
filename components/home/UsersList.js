@@ -9,7 +9,7 @@ const UsersList = ({ users }) => {
   return (
     <View style={MainStyles.alignCenter}>
       <FlatList
-        data={users}
+        data={users.filter(u => u.messages.length > 0)}
         renderItem={({ item }) => <User data={item} />}
         keyExtractor={item => item.user._id}
       />
