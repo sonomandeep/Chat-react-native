@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { MainStyles } from '../style/styles';
 import { logoutAction } from '../store/actions/userActions';
-
-const styles = StyleSheet.create({
-  text: { color: '#333333' },
-});
+import { getUsersAction } from '../store/actions/chatActions';
+import UsersList from '../components/home/UsersList';
 
 class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Home',
   };
+
+  componentDidMount() {
+    const { getUsers, user } = this.props;
+    getUsers(user._id);
+  }
 
   handleLogout = () => {
     const { logout, navigation } = this.props;
@@ -21,23 +22,30 @@ class HomeScreen extends Component {
   };
 
   render() {
-    return (
-      <View style={[MainStyles.defaultLayout, MainStyles.alignCenter]}>
-        <Text style={styles.text}>Home screen</Text>
-        <Button title="Logout" onPress={this.handleLogout} />
-      </View>
-    );
+    const { users } = this.props;
+
+    return <UsersList users={users} />;
   }
 }
 
 HomeScreen.propTypes = {
-  logout: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
+  logout: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+  users: PropTypes.instanceOf(Array).isRequired,
 };
 
+const mapStateToProps = state => ({
+  user: state.user.user,
+  users: state.chat.users,
+});
+
 export default connect(
-  null,
-  { logout: logoutAction }
+  mapStateToProps,
+  { logout: logoutAction, getUsers: getUsersAction }
 )(HomeScreen);

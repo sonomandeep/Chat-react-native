@@ -13,7 +13,9 @@
     "prettier/prettier": [
       "error",
       { "trailingComma": "es5", "singleQuote": true, "printWidth": 100 }
-    ]
+    ],
+    "import/prefer-default-export": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }]
   },
   "plugins": ["prettier"]
 }

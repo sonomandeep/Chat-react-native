@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN_LINK } from '../constants/apiLinks';
+import { LOGIN_LINK, USERS_LIST_LINK } from '../constants/apiLinks';
 
 export const login = async (username, password) => {
   const res = await axios.post(LOGIN_LINK, { username, password });
@@ -7,3 +7,8 @@ export const login = async (username, password) => {
 };
 
 export const signup = () => {};
+
+export const getUsers = async _id => {
+  const res = await axios.post(USERS_LIST_LINK, { userID: _id });
+  return res.data;
+};
