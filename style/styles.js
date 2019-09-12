@@ -1,3 +1,8 @@
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
+
 export const Colors = {
   primary: '#33E1ED',
   black: '#111111',
@@ -25,4 +30,5 @@ export const MainStyles = {
     width: 350,
   },
   alignCenterVertically: { justifyContent: 'center' },
+  fullWidth: { width },
 };

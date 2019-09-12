@@ -12,10 +12,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     fontSize: 17,
-    // shadowColor: '#707070',
-    // shadowOffset: { width: 2, height: 4 },
-    // shadowOpacity: 100,
-    // shadowRadius: 10,
   },
   textInputError: {
     borderColor: Colors.error,
@@ -26,10 +22,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     fontSize: 17,
-    // shadowColor: '#707070',
-    // shadowOffset: { width: 2, height: 4 },
-    // shadowOpacity: 100,
-    // shadowRadius: 10,
   },
 });
 
