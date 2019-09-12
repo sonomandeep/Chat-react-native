@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { Colors, Fonts } from '../../style/styles';
+import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
 const styles = StyleSheet.create({
   user: {},
@@ -17,8 +18,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   profileImage: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderColor: Colors.primary,
     borderWidth: 2,
     borderRadius: 500,
@@ -33,15 +34,18 @@ const User = ({ data, navigation }) => {
   const { user, messages } = data;
 
   return (
-    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('Chat', { messages })}>
+    <TouchableOpacity
+      style={styles.user}
+      onPress={() => navigation.navigate('Chat', { messages, user })}
+    >
       <View style={styles.inner}>
         <View style={styles.left}>
           <Image
             style={styles.profileImage}
             source={{
               uri: user.profileImageURL
-                ? `https://localhost:5000/${user.profileImageURL}`
-                : 'https://pronksiapartments.ee/wp-content/uploads/2015/10/placeholder-face-big.png',
+                ? getImageLink(user.profileImageURL)
+                : PLACEHOLDER_IMAGE_LINK,
             }}
           />
           <View>

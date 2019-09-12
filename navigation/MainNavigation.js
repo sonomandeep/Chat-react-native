@@ -6,11 +6,18 @@ import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import { Colors } from '../style/styles';
 
 const HomeStack = createStackNavigator(
   {
-    Home: { screen: HomeScreen, navigationOptions: () => ({ title: 'Home' }) },
-    Chat: { screen: ChatScreen, navigationOptions: () => ({ title: 'Chat' }) },
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({ title: 'Home' }),
+    },
+    Chat: {
+      screen: ChatScreen,
+      navigationOptions: () => ({ title: 'Home', headerTintColor: '#fff' }),
+    },
   },
   {
     initialRouteName: 'Home',
