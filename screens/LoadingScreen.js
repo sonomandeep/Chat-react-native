@@ -15,6 +15,10 @@ function LoadingScreen({ navigation }) {
     bootstrap();
   }, [payload]);
 
+  // useEffect(() => {
+  //   setSocket();
+  // }, []);
+
   return (
     <View style={[MainStyles.container, MainStyles.alignCenter, MainStyles.alignCenterVertically]}>
       <ActivityIndicator size="large" />
@@ -28,5 +32,10 @@ LoadingScreen.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+// export default connect(
+//   null,
+//   { setSocket: setSocketAction }
+// )(LoadingScreen);
 
 export default LoadingScreen;

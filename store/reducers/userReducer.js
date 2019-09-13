@@ -5,9 +5,6 @@ export default function userReducer(state = initialState, action) {
     case 'LOGIN':
       return { ...state, user: action.user };
 
-    case 'SET_SOCKET':
-      return { ...state, socket: action.payload };
-
     default:
       return state;
   }
