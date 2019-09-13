@@ -29,6 +29,6 @@
     },
     "android": {
       "package": "it.emes.test.chat"
-    },
+    }
   }
 }
