@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import { Colors, Fonts } from '../../style/styles';
 
 const styles = StyleSheet.create({
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   button: {},
 });
 
-const Input = () => {
+const Input = ({ sendMessage }) => {
   const [message, setMessage] = useState('');
 
   const handleChangeText = text => {
@@ -31,7 +32,7 @@ const Input = () => {
   };
 
   const handleSendMessage = () => {
-    console.log(message);
+    sendMessage(message);
   };
 
   return (
@@ -47,6 +48,10 @@ const Input = () => {
       </TouchableOpacity>
     </View>
   );
+};
+
+Input.propTypes = {
+  sendMessage: PropTypes.func.isRequired,
 };
 
 export default Input;
