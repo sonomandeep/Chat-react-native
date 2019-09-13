@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
 import Message from './Message';
 import Input from './Input';
 import { MainStyles } from '../../style/styles';
@@ -31,14 +32,12 @@ const Chat = ({ navigation }) => {
   const { messages } = activeUser[0];
 
   const sendMessage = message => {
-    const date = Date.now();
-    const now = `${date}`;
     const data = {
-      _id: '123456789',
+      _id: uuid(),
       message,
       senderUserID: user._id,
       receiverUserID: navigation.state.params.user._id,
-      createdAt: now,
+      createdAt: Date(),
     };
 
     socket.emit('send_message', data);

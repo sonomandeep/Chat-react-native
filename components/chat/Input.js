@@ -33,6 +33,7 @@ const Input = ({ sendMessage }) => {
 
   const handleSendMessage = () => {
     sendMessage(message);
+    setMessage('');
   };
 
   return (
