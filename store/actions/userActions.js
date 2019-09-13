@@ -8,9 +8,12 @@ export const loginAction = (username, password) => async dispatch => {
 
 export const logoutAction = () => dispatch => dispatch({ type: 'LOGOUT' });
 
-// TODO: Singup
 export const signupAction = (username, password) => dispatch => {
   login(username, password)
     .then(dispatch({ type: 'SIGNUP' }))
     .catch(error => console.log(error));
+};
+
+export const setSocketAction = socket => dispatch => {
+  dispatch({ type: 'SET_SOCKET', payload: socket });
 };

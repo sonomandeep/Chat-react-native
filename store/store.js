@@ -8,6 +8,7 @@ import rootReducer from './reducers/rootReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blackList: ['socket'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

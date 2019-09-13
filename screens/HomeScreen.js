@@ -23,7 +23,6 @@ class HomeScreen extends Component {
 
   render() {
     const { users } = this.props;
-
     return <UsersList users={users || []} />;
   }
 }
@@ -32,12 +31,12 @@ HomeScreen.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
-  logout: PropTypes.func.isRequired,
-  getUsers: PropTypes.func.isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
   }).isRequired,
   users: PropTypes.instanceOf(Array),
+  logout: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
@@ -47,6 +46,7 @@ HomeScreen.defaultProps = {
 const mapStateToProps = state => ({
   user: state.user.user,
   users: state.chat.users,
+  socket: state.user.socket,
 });
 
 export default connect(
