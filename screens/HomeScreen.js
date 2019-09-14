@@ -11,6 +11,17 @@ class HomeScreen extends Component {
     title: 'Home',
   };
 
+  constructor(props, context) {
+    super(props, context);
+
+    const { receiveMessage } = props;
+    const { socket } = context;
+
+    socket.on('message', data => {
+      receiveMessage(data);
+    });
+  }
+
   componentDidMount() {
     const { getUsers, user } = this.props;
     getUsers(user._id);
@@ -23,13 +34,7 @@ class HomeScreen extends Component {
   };
 
   render() {
-    const { users, receiveMessage } = this.props;
-    const { socket } = this.context;
-
-    socket.on('message', data => {
-      console.log('Risolvere il fatto che questa funzione viene invocata 2 volte.');
-      receiveMessage(data);
-    });
+    const { users } = this.props;
 
     return <UsersList users={users || []} />;
   }
@@ -45,6 +50,7 @@ HomeScreen.propTypes = {
   users: PropTypes.instanceOf(Array),
   logout: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
+  receiveMessage: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
