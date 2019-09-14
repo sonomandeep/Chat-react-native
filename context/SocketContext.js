@@ -12,6 +12,7 @@ const socket = openSocket(API_LINK, {
 let newConnection = false;
 
 socket.on('connect', () => {
+  console.log('Connesso');
   newConnection = true;
 });
 

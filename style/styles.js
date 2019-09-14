@@ -27,7 +27,6 @@ export const MainStyles = {
   container: {
     flex: 1,
     alignSelf: 'center',
-    width: 350,
   },
   alignCenterVertically: { justifyContent: 'center' },
   fullWidth: { width },
