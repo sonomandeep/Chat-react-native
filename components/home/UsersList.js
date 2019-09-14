@@ -7,7 +7,7 @@ import User from './User';
 
 const UsersList = ({ users }) => {
   return (
-    <View style={MainStyles.alignCenter}>
+    <View style={[MainStyles.alignCenter, MainStyles.container]}>
       <FlatList
         data={users.filter(u => u.messages.length > 0)}
         renderItem={({ item }) => <User data={item} />}

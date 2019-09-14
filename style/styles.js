@@ -26,7 +26,9 @@ export const MainStyles = {
   alignCenter: { alignItems: 'center', alignSelf: 'center' },
   container: {
     flex: 1,
+    width: '100%',
     alignSelf: 'center',
+    paddingHorizontal: 16,
   },
   alignCenterVertically: { justifyContent: 'center' },
   fullWidth: { width },

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   messageList: {
     flex: 1,
     alignSelf: 'center',
-    width: MainStyles.container.width,
+    width: '100%',
   },
   sendMessageInput: { flex: 1, height: 60 },
 });

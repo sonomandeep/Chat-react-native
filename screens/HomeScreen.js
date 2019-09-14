@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { logoutAction } from '../store/actions/userActions';
 import { getUsersAction } from '../store/actions/chatActions';
 import UsersList from '../components/home/UsersList';
-import SocketContextProvider from '../context/SocketContext';
 
 class HomeScreen extends Component {
   static navigationOptions = {
