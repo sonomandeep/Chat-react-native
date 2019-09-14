@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
+import { FlatList } from 'react-native-gesture-handler';
 import Message from './Message';
 import Input from './Input';
 import { MainStyles } from '../../style/styles';
@@ -45,12 +46,14 @@ const Chat = ({ navigation }) => {
   };
 
   return (
-    <View style={[MainStyles.container, MainStyles.fullWidth]}>
-      <View style={styles.messageList}>
-        {messages.map(message => (
-          <Message message={message} key={message._id} />
-        ))}
-      </View>
+    <View style={[MainStyles.containerWithoutPadding, MainStyles.fullWidth]}>
+      <FlatList
+        style={styles.messageList}
+        data={messages}
+        renderItem={({ item }) => <Message message={item} />}
+        keyExtractor={item => item._id}
+        initialScrollIndex={messages.length - 1}
+      />
       <Input sendMessage={sendMessage} />
     </View>
   );
