@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, ActivityIndicator, StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MainStyles } from '../style/styles';
+import { SocketContext } from '../context/SocketContext';
 
 function LoadingScreen({ navigation }) {
   const payload = useSelector(state => state.user);
+  const { socket } = useContext(SocketContext);
 
   const bootstrap = () => {
     navigation.navigate(payload.user ? 'App' : 'Auth');
@@ -15,9 +17,12 @@ function LoadingScreen({ navigation }) {
     bootstrap();
   }, [payload]);
 
-  // useEffect(() => {
-  //   setSocket();
-  // }, []);
+  useEffect(() => {
+    socket.emit('new_user', {
+      username: payload.user.username,
+      _id: payload.user._id,
+    });
+  }, []);
 
   return (
     <View style={[MainStyles.container, MainStyles.alignCenter, MainStyles.alignCenterVertically]}>
@@ -32,10 +37,5 @@ LoadingScreen.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
-
-// export default connect(
-//   null,
-//   { setSocket: setSocketAction }
-// )(LoadingScreen);
 
 export default LoadingScreen;

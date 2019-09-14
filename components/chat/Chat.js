@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     width: '100%',
+    paddingHorizontal: MainStyles.padding.mainPadding,
   },
   sendMessageInput: { flex: 1, height: 60 },
 });

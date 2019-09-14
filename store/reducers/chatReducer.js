@@ -11,6 +11,12 @@ export default function chatReducer(state = initialState, { type, payload }) {
         users: payload,
       };
 
+    case 'RECEIVE_MESSAGE':
+      return {
+        ...state,
+        users: payload,
+      };
+
     default:
       return state;
   }

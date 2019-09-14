@@ -3,16 +3,19 @@ import { connect } from 'react-redux';
 import openSocket from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { API_LINK } from '../constants/apiLinks';
+import { receiveMessageAction } from '../store/actions/chatActions';
 
 const socket = openSocket(API_LINK, {
   transports: ['websocket'],
   jsonp: false,
 });
 
-let newConnection = false;
-
 socket.on('connect', () => {
-  newConnection = true;
+  console.log('Connesso');
+});
+
+socket.on('message', () => {
+  console.log('Messaggio');
 });
 
 export const SocketContext = createContext({ socket });
@@ -27,15 +30,12 @@ class SocketContextProvider extends Component {
   }
 
   render() {
-    const { children, user } = this.props;
+    const { children, receiveMessage } = this.props;
 
-    if (newConnection) {
-      socket.emit('new_user', {
-        username: user.username,
-        _id: user._id,
-      });
-      newConnection = false;
-    }
+    // socket.on('message', data => {
+    //   receiveMessage(data);
+    //   console.log('Entrato');
+    // });
 
     return <SocketContext.Provider value={{ ...this.state }}>{children}</SocketContext.Provider>;
   }
@@ -47,8 +47,12 @@ SocketContextProvider.propTypes = {
     username: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired,
+  receiveMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ user: state.user.user });
 
-export default connect(mapStateToProps)(SocketContextProvider);
+export default connect(
+  mapStateToProps,
+  { receiveMessage: receiveMessageAction }
+)(SocketContextProvider);
