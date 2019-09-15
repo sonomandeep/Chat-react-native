@@ -18,11 +18,13 @@ function LoadingScreen({ navigation }) {
   }, [payload]);
 
   useEffect(() => {
-    socket.emit('new_user', {
-      username: payload.user.username,
-      _id: payload.user._id,
-    });
-  }, []);
+    if (payload.user) {
+      socket.emit('new_user', {
+        username: payload.user.username,
+        _id: payload.user._id,
+      });
+    }
+  }, [payload.user]);
 
   return (
     <View style={[MainStyles.container, MainStyles.alignCenter, MainStyles.alignCenterVertically]}>

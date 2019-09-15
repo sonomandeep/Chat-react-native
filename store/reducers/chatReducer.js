@@ -12,9 +12,13 @@ export default function chatReducer(state = initialState, { type, payload }) {
       };
 
     case 'RECEIVE_MESSAGE':
+      // eslint-disable-next-line no-case-declarations
+      const users = [...state.users];
+      users.map(u => u.user._id === payload.senderUserID && u.messages.push(payload));
+
       return {
         ...state,
-        users: payload,
+        users,
       };
 
     default:

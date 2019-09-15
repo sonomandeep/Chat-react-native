@@ -24,9 +24,10 @@ export const sendMessageAction = data => (dispatch, getState) => {
 };
 
 export const receiveMessageAction = message => (dispatch, getState) => {
-  const state = getState();
-  const { users } = state.chat;
-  users.map(u => u.user._id === message.senderUserID && u.messages.push(message));
+  // const state = getState();
+  // const { users } = state.chat;
+  // users.map(u => u.user._id === message.senderUserID && u.messages.push(message));
 
-  dispatch({ type: 'RECEIVE_MESSAGE', payload: users });
+  // dispatch({ type: 'RECEIVE_MESSAGE', payload: users });
+  dispatch({ type: 'RECEIVE_MESSAGE', payload: message });
 };

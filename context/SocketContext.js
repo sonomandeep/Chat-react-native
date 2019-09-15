@@ -36,7 +36,11 @@ SocketContextProvider.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
+};
+
+SocketContextProvider.defaultProps = {
+  user: {},
 };
 
 const mapStateToProps = state => ({ user: state.user.user });
