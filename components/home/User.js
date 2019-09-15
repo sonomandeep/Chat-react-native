@@ -7,7 +7,7 @@ import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks
 
 const styles = StyleSheet.create({
   user: {
-    marginTop: 30,
+    marginTop: 24,
   },
   inner: {
     flex: 1,
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   left: {
     flexDirection: 'row',
     width: '65%',
+    alignItems: 'center',
   },
   profileImage: {
     width: 44,
@@ -52,10 +53,11 @@ const User = ({ data, navigation }) => {
           />
           <View>
             <Text style={styles.name}>{user.username}</Text>
-            <Text style={styles.message} numberOfLines={1}>
-              {/* {messages[messages.length - 1] && messages[messages.length - 1].message} */}
-              {messages[messages.length - 1].message}
-            </Text>
+            {messages.length > 0 && (
+              <Text style={styles.message} numberOfLines={1}>
+                {messages[messages.length - 1].message}
+              </Text>
+            )}
           </View>
         </View>
         <View>

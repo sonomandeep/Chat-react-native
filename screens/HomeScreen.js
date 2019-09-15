@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutAction } from '../store/actions/userActions';
 import { getUsersAction, receiveMessageAction } from '../store/actions/chatActions';
 import UsersList from '../components/home/UsersList';
 import { SocketContext } from '../context/SocketContext';
+import CustomTextInput from '../components/input/CustomTextInput';
+import { MainStyles, Colors, Fonts } from '../style/styles';
+
+const styles = StyleSheet.create({
+  search: {
+    ...Fonts.body,
+    backgroundColor: Colors.lowConstrastGray,
+    marginHorizontal: MainStyles.padding.mainPadding,
+    marginTop: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+});
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -20,6 +35,11 @@ class HomeScreen extends Component {
     socket.on('message', data => {
       receiveMessage(data);
     });
+
+    this.state = {
+      users: props.users,
+      query: '',
+    };
   }
 
   componentDidMount() {
@@ -33,10 +53,26 @@ class HomeScreen extends Component {
     navigation.navigate('Auth');
   };
 
-  render() {
-    const { users } = this.props;
+  handleChangeText = query => {
+    this.setState({ query });
+  };
 
-    return <UsersList users={users || []} />;
+  render() {
+    const { query, users } = this.state;
+
+    return (
+      <>
+        <View>
+          <CustomTextInput
+            placeholder="Cerca..."
+            value={query}
+            onChangeText={this.handleChangeText}
+            style={styles.search}
+          />
+        </View>
+        <UsersList users={users || []} query={query} />
+      </>
+    );
   }
 }
 
