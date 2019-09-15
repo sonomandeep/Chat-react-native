@@ -1,30 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutAction } from '../store/actions/userActions';
 import { getUsersAction, receiveMessageAction } from '../store/actions/chatActions';
 import UsersList from '../components/home/UsersList';
 import { SocketContext } from '../context/SocketContext';
-import CustomTextInput from '../components/input/CustomTextInput';
-import { MainStyles, Colors, Fonts } from '../style/styles';
-
-const styles = StyleSheet.create({
-  search: {
-    ...Fonts.body,
-    backgroundColor: Colors.lowConstrastGray,
-    marginHorizontal: MainStyles.padding.mainPadding,
-    marginTop: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 8,
-  },
-});
+import Header from '../components/home/Header';
 
 class HomeScreen extends Component {
-  static navigationOptions = {
-    title: 'Home',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header handleQueryChange={navigation.getParam('handleQueryChange')} />,
+  });
 
   static getDerivedStateFromProps(nextProps) {
     return {
@@ -49,8 +35,9 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    const { getUsers, user } = this.props;
+    const { getUsers, user, navigation } = this.props;
     getUsers(user._id);
+    navigation.setParams({ handleQueryChange: this.handleQueryChange });
   }
 
   handleLogout = () => {
@@ -59,28 +46,14 @@ class HomeScreen extends Component {
     navigation.navigate('Auth');
   };
 
-  handleChangeText = query => {
+  handleQueryChange = query => {
     this.setState({ query });
   };
 
   render() {
     const { query, users } = this.state;
 
-    // console.log(users[2].messages);
-
-    return (
-      <>
-        <View>
-          <CustomTextInput
-            placeholder="Cerca..."
-            value={query}
-            onChangeText={this.handleChangeText}
-            style={styles.search}
-          />
-        </View>
-        <UsersList users={users || []} query={query} />
-      </>
-    );
+    return <UsersList users={users || []} query={query} />;
   }
 }
 
