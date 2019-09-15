@@ -37,5 +37,6 @@ export const MainStyles = {
   },
   alignCenterVertically: { justifyContent: 'center' },
   fullWidth: { width },
+  parentFullWidth: { width: '100%' },
   padding: { mainPadding: 16 },
 };

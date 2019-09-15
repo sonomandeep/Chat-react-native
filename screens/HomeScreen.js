@@ -20,10 +20,6 @@ class HomeScreen extends Component {
     socket.on('message', data => {
       receiveMessage(data);
     });
-
-    this.state = {
-      users: props.users,
-    };
   }
 
   componentDidMount() {

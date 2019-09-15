@@ -6,16 +6,18 @@ import { Colors, Fonts } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
 const styles = StyleSheet.create({
-  user: {},
+  user: {
+    marginTop: 30,
+  },
   inner: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 30,
-    width: 360,
   },
   left: {
     flexDirection: 'row',
+    width: '65%',
   },
   profileImage: {
     width: 44,
@@ -50,10 +52,9 @@ const User = ({ data, navigation }) => {
           />
           <View>
             <Text style={styles.name}>{user.username}</Text>
-            <Text style={styles.message}>
-              {messages[messages.length - 1]
-                ? messages[messages.length - 1].message
-                : 'Acnora nessun messaggio'}
+            <Text style={styles.message} numberOfLines={1}>
+              {/* {messages[messages.length - 1] && messages[messages.length - 1].message} */}
+              {messages[messages.length - 1].message}
             </Text>
           </View>
         </View>
