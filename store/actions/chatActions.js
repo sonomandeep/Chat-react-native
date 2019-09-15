@@ -23,11 +23,6 @@ export const sendMessageAction = data => (dispatch, getState) => {
   dispatch({ type: 'SEND_MESSAGE', payload: users });
 };
 
-export const receiveMessageAction = message => (dispatch, getState) => {
-  // const state = getState();
-  // const { users } = state.chat;
-  // users.map(u => u.user._id === message.senderUserID && u.messages.push(message));
-
-  // dispatch({ type: 'RECEIVE_MESSAGE', payload: users });
+export const receiveMessageAction = message => dispatch => {
   dispatch({ type: 'RECEIVE_MESSAGE', payload: message });
 };
