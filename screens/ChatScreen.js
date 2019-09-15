@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import Message from '../components/chat/Message';
-import { MainStyles, Colors } from '../style/styles';
+import { Colors } from '../style/styles';
 import Header from '../components/chat/Header';
-import Input from '../components/chat/Input';
-
-const styles = StyleSheet.create({
-  messageList: {
-    flex: 1,
-    alignSelf: 'center',
-    width: MainStyles.container.width,
-  },
-  sendMessageInput: { flex: 1, height: 60 },
-});
+import SocketContextProvider from '../context/SocketContext';
+import Chat from '../components/chat/Chat';
 
 class ChatScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -22,18 +12,10 @@ class ChatScreen extends Component {
   });
 
   render() {
-    const { navigation } = this.props;
-    const { messages } = navigation.state.params;
-
     return (
-      <View style={[MainStyles.container, MainStyles.fullWidth]}>
-        <View style={styles.messageList}>
-          {messages.map(message => (
-            <Message message={message} key={message._id} />
-          ))}
-        </View>
-        <Input />
-      </View>
+      <SocketContextProvider>
+        <Chat />
+      </SocketContextProvider>
     );
   }
 }

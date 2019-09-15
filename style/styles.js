@@ -1,7 +1,7 @@
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const { height } = Dimensions.get('window');
+// const { height } = Dimensions.get('window');
 
 export const Colors = {
   primary: '#33E1ED',
@@ -26,9 +26,16 @@ export const MainStyles = {
   alignCenter: { alignItems: 'center', alignSelf: 'center' },
   container: {
     flex: 1,
+    width: '100%',
     alignSelf: 'center',
-    width: 350,
+    paddingHorizontal: 16,
+  },
+  containerWithoutPadding: {
+    flex: 1,
+    width: '100%',
+    alignSelf: 'center',
   },
   alignCenterVertically: { justifyContent: 'center' },
   fullWidth: { width },
+  padding: { mainPadding: 16 },
 };
