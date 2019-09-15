@@ -60,9 +60,11 @@ const User = ({ data, navigation }) => {
             )}
           </View>
         </View>
-        <View>
-          <Text style={styles.hour}>10 min</Text>
-        </View>
+        {messages.length > 0 && (
+          <View>
+            <Text style={styles.hour}>10 min</Text>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );

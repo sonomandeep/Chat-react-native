@@ -15,12 +15,8 @@ export const getUsersAction = _id => async (dispatch, getState) => {
   }
 };
 
-export const sendMessageAction = data => (dispatch, getState) => {
-  const state = getState();
-  const { users } = state.chat;
-  users.map(u => u.user._id === data.receiverUserID && u.messages.push(data));
-
-  dispatch({ type: 'SEND_MESSAGE', payload: users });
+export const sendMessageAction = data => dispatch => {
+  dispatch({ type: 'SEND_MESSAGE', payload: data });
 };
 
 export const receiveMessageAction = message => dispatch => {

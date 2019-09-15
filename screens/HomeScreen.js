@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutAction } from '../store/actions/userActions';
@@ -25,6 +25,12 @@ class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Home',
   };
+
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      users: nextProps.users,
+    };
+  }
 
   constructor(props, context) {
     super(props, context);
@@ -59,6 +65,8 @@ class HomeScreen extends Component {
 
   render() {
     const { query, users } = this.state;
+
+    // console.log(users[2].messages);
 
     return (
       <>
