@@ -1,24 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { FlatList } from 'react-native-gesture-handler';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Message from './Message';
 import Input from './Input';
-import { MainStyles } from '../../style/styles';
+import { MainStyles, Colors } from '../../style/styles';
 import { SocketContext } from '../../context/SocketContext';
 import { sendMessageAction } from '../../store/actions/chatActions';
 
 const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: Colors.lowConstrastGray,
+  },
   messageList: {
-    flex: 1,
     alignSelf: 'center',
     width: '100%',
     paddingHorizontal: MainStyles.padding.mainPadding,
   },
-  sendMessageInput: { flex: 1, height: 60 },
 });
 
 const Chat = ({ navigation }) => {
@@ -50,15 +52,15 @@ const Chat = ({ navigation }) => {
   };
 
   return (
-    <View style={[MainStyles.containerWithoutPadding, MainStyles.fullWidth]}>
+    <View style={[MainStyles.containerWithoutPadding, styles.wrapper]}>
       <FlatList
         style={styles.messageList}
         data={messages}
         renderItem={({ item }) => <Message message={item} />}
         keyExtractor={item => item._id}
-        // initialScrollIndex={messages.length - 1}
       />
       <Input sendMessage={sendMessage} />
+      <KeyboardSpacer />
     </View>
   );
 };

@@ -11,6 +11,7 @@ export const Colors = {
   error: '#F44336',
   errorBackground: 'rgba(244,67,54,0.2)',
   lowConstrastGray: '#F3F3F3',
+  backgroud: '#F0F0F0',
 };
 
 export const Fonts = {

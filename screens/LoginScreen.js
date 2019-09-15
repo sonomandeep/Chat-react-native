@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginAction } from '../store/actions/userActions';
@@ -67,7 +67,7 @@ class LoginScreen extends Component {
       <View style={[MainStyles.container, MainStyles.alignCenterVertically]}>
         <Text style={styles.title}>Chat</Text>
         <Text style={{ ...Fonts.headerTwo }}>Accedi</Text>
-        <View>
+        <KeyboardAvoidingView behavior="padding">
           <InputField
             style={styles.marginTop}
             placeHolder="Username"
@@ -86,7 +86,7 @@ class LoginScreen extends Component {
             error={error}
           />
           <PrimaryButton style={styles.marginTop} text="Accedi" pressHandler={this.submit} />
-        </View>
+        </KeyboardAvoidingView>
         <View style={MainStyles.alignCenter}>
           <View style={MainStyles.alignCenter}>
             <Text style={styles.textLowContract}>Hai dimenticato le credenziali?</Text>
