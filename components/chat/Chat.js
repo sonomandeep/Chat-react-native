@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, createRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
@@ -27,6 +27,7 @@ const Chat = ({ navigation }) => {
   const { socket } = useContext(SocketContext);
   const user = useSelector(state => state.user.user);
   const dispatch = useDispatch();
+  let messageList = createRef();
 
   const activeUser = useSelector(state =>
     state.chat.users.filter(u => u.user._id === navigation.state.params.user._id)
@@ -54,10 +55,14 @@ const Chat = ({ navigation }) => {
   return (
     <View style={[MainStyles.containerWithoutPadding, styles.wrapper]}>
       <FlatList
+        ref={e => {
+          messageList = e;
+        }}
         style={styles.messageList}
         data={messages}
         renderItem={({ item }) => <Message message={item} />}
         keyExtractor={item => item._id}
+        onContentSizeChange={() => messageList.scrollToEnd({ animated: false })}
       />
       <Input sendMessage={sendMessage} />
       <KeyboardSpacer />
