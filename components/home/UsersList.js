@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import PropTypes from 'prop-types';
@@ -6,11 +6,32 @@ import { MainStyles } from '../../style/styles';
 import User from './User';
 
 const UsersList = ({ users, query }) => {
+  const [usersList, setUsersList] = useState(users);
+
+  const compareUsers = (a, b) => {
+    const aCreatedAt = a.messages[a.messages.length - 1].createdAt;
+    const bCreatedAt = b.messages[b.messages.length - 1].createdAt;
+
+    let comparison = 0;
+
+    if (aCreatedAt < bCreatedAt) {
+      comparison = 1;
+    } else if (aCreatedAt > bCreatedAt) {
+      comparison = -1;
+    }
+
+    return comparison;
+  };
+
+  useEffect(() => {
+    setUsersList(usersList.sort(compareUsers));
+  }, [users]);
+
   return (
     <View style={[MainStyles.alignCenter, MainStyles.container]}>
       <FlatList
         style={MainStyles.parentFullWidth}
-        data={users.filter(u => {
+        data={usersList.filter(u => {
           if (query) {
             return u.user.username.includes(query);
           }

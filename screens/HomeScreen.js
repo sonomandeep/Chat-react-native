@@ -38,6 +38,7 @@ class HomeScreen extends Component {
     const { getUsers, user, navigation } = this.props;
     getUsers(user._id);
     navigation.setParams({ handleQueryChange: this.handleQueryChange });
+    // this.sortUsers();
   }
 
   handleLogout = () => {
@@ -50,6 +51,44 @@ class HomeScreen extends Component {
     this.setState({ query });
   };
 
+  // compareUsers = (a, b) => {
+  //   const aCreatedAt = a.messages[a.messages.length - 1].createdAt;
+  //   const bCreatedAt = b.messages[b.messages.length - 1].createdAt;
+
+  //   let comparison = 0;
+
+  //   if (aCreatedAt > bCreatedAt) {
+  //     comparison = 1;
+  //   } else if (aCreatedAt < bCreatedAt) {
+  //     comparison = -1;
+  //   }
+
+  //   return comparison;
+  // };
+
+  // sortUsers = () => {
+  // const sorted = this.state.users.sort(
+  //   (a, b) =>
+  //     a.messages[a.messages.length - 1].createdAt < b.messages[b.messages.length - 1].createdAt
+  // );
+  // const sorted = this.state.users.sort((a, b) => {
+  //   console.log(
+  //     a.messages[a.messages.length - 1].createdAt,
+  //     b.messages[b.messages.length - 1].createdAt,
+  //     a.messages[a.messages.length - 1].createdAt < b.messages[b.messages.length - 1].createdAt
+  //   );
+  //   return a.messages[a.messages.length - 1].createdAt >
+  //     b.messages[b.messages.length - 1].createdAt
+  //     ? 1
+  //     : -1;
+  // });
+  // const sorted = [...this.state.users];
+  // sorted.map(u => console.log('Username:', u.user.username));
+  // sorted.sort(this.compareUsers);
+  // sorted.map(u => console.log('Username:', u.user.username));
+  // this.setState({ users: sorted });
+  // };
+
   render() {
     const { query, users } = this.state;
 
@@ -60,6 +99,7 @@ class HomeScreen extends Component {
 HomeScreen.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    setParams: PropTypes.func.isRequired,
   }).isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
