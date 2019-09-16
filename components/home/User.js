@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/it';
 import { Colors, Fonts } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
@@ -35,6 +37,7 @@ const styles = StyleSheet.create({
 
 const User = ({ data, navigation }) => {
   const { user, messages } = data;
+  moment.locale('it');
 
   return (
     <TouchableOpacity
@@ -62,7 +65,11 @@ const User = ({ data, navigation }) => {
         </View>
         {messages.length > 0 && (
           <View>
-            <Text style={styles.hour}>10 min</Text>
+            <Text style={styles.hour}>
+              {moment(new Date(messages[messages.length - 1].createdAt))
+                .startOf()
+                .fromNow()}
+            </Text>
           </View>
         )}
       </View>
