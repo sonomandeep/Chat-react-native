@@ -28,15 +28,17 @@ const Chat = ({ navigation }) => {
   const user = useSelector(state => state.user.user);
   const dispatch = useDispatch();
   let messageList = createRef();
-
   const activeUser = useSelector(state =>
-    state.chat.users.filter(u => u.user._id === navigation.state.params.user._id)
+    state.chat.users.find(u => u.user._id === navigation.state.params.user._id)
   );
 
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages(activeUser[0].messages);
+    setMessages(activeUser.messages);
+    if (user && activeUser) {
+      socket.emit('visualize', { sender: user, receiver: activeUser._id });
+    }
   }, [activeUser]);
 
   const sendMessage = message => {

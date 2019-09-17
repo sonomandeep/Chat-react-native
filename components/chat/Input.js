@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 6,
     backgroundColor: '#ffffff',
 
     ...Platform.select({
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
   input: {
     ...Fonts.body,
     flex: 1,
-    marginRight: 20,
+    marginRight: 16,
     paddingLeft: 16,
-    paddingVertical: 10,
+    paddingVertical: 8,
     backgroundColor: Colors.lowConstrastGray,
     borderRadius: 8,
   },
