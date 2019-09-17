@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     ...Fonts.body,
     color: '#fff',
     alignSelf: 'flex-start',
-    paddingVertical: 10,
+    paddingVertical: 6,
     paddingHorizontal: 25,
     backgroundColor: Colors.primary,
     borderRadius: 500,
@@ -30,15 +30,18 @@ const styles = StyleSheet.create({
   },
   messageReadingConfirmations: {
     flexDirection: 'row',
-    marginLeft: 10,
+    marginLeft: 5,
     alignItems: 'center',
   },
   circle: {
     marginLeft: 2,
-    backgroundColor: Colors.primary,
     height: 10,
     width: 10,
     borderRadius: 5,
+    backgroundColor: '#bbb',
+  },
+  circleVisualized: {
+    backgroundColor: Colors.primary,
   },
   messageTime: { ...Fonts.lowContrast },
 });
@@ -60,8 +63,8 @@ const Message = ({ message }) => {
 
         {isSent && (
           <View style={styles.messageReadingConfirmations}>
-            <View style={styles.circle} />
-            <View style={styles.circle} />
+            <View style={[styles.circle, message.visualized && styles.circleVisualized]} />
+            {/* <View style={styles.circle} /> */}
           </View>
         )}
       </View>
@@ -74,6 +77,7 @@ Message.propTypes = {
     message: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     senderUserID: PropTypes.string.isRequired,
+    visualized: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

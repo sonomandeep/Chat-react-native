@@ -38,7 +38,6 @@ class HomeScreen extends Component {
     const { getUsers, user, navigation } = this.props;
     getUsers(user._id);
     navigation.setParams({ handleQueryChange: this.handleQueryChange });
-    // this.sortUsers();
   }
 
   handleLogout = () => {

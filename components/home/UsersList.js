@@ -9,6 +9,8 @@ const UsersList = ({ users, query }) => {
   const [usersList, setUsersList] = useState([]);
 
   const compareUsers = (a, b) => {
+    if (!a.messages.length > 0 || !b.messages.length > 0) return 0;
+
     const aCreatedAt = a.messages[a.messages.length - 1].createdAt;
     const bCreatedAt = b.messages[b.messages.length - 1].createdAt;
 
