@@ -63,8 +63,7 @@ const Message = ({ message }) => {
 
         {isSent && (
           <View style={styles.messageReadingConfirmations}>
-            <View style={[styles.circle, message.visualized && styles.circleVisualized]} />
-            {/* <View style={styles.circle} /> */}
+            <View style={[styles.circle, message.isVisualized && styles.circleVisualized]} />
           </View>
         )}
       </View>
@@ -77,7 +76,7 @@ Message.propTypes = {
     message: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     senderUserID: PropTypes.string.isRequired,
-    visualized: PropTypes.bool.isRequired,
+    isVisualized: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

@@ -22,3 +22,7 @@ export const sendMessageAction = data => dispatch => {
 export const receiveMessageAction = message => dispatch => {
   dispatch({ type: 'RECEIVE_MESSAGE', payload: message });
 };
+
+export const setMessageVisualizedAction = _id => dispatch => {
+  dispatch({ type: 'MESSAGE_VISUALIZED', payload: _id });
+};

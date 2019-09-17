@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutAction } from '../store/actions/userActions';
-import { getUsersAction, receiveMessageAction } from '../store/actions/chatActions';
+import {
+  getUsersAction,
+  receiveMessageAction,
+  setMessageVisualizedAction,
+} from '../store/actions/chatActions';
 import UsersList from '../components/home/UsersList';
 import { SocketContext } from '../context/SocketContext';
 import Header from '../components/home/Header';
@@ -26,6 +30,10 @@ class HomeScreen extends Component {
 
     socket.on('message', data => {
       receiveMessage(data);
+    });
+
+    socket.on('visualize', data => {
+      props.setMessageVisualized(data);
     });
 
     this.state = {
@@ -69,6 +77,7 @@ HomeScreen.propTypes = {
   logout: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
+  setMessageVisualized: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
@@ -84,5 +93,10 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout: logoutAction, getUsers: getUsersAction, receiveMessage: receiveMessageAction }
+  {
+    logout: logoutAction,
+    getUsers: getUsersAction,
+    receiveMessage: receiveMessageAction,
+    setMessageVisualized: setMessageVisualizedAction,
+  }
 )(HomeScreen);

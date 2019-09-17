@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Colors } from '../style/styles';
 import Header from '../components/chat/Header';
-import SocketContextProvider from '../context/SocketContext';
+import { SocketContext } from '../context/SocketContext';
 import Chat from '../components/chat/Chat';
 
 class ChatScreen extends Component {
@@ -11,12 +12,17 @@ class ChatScreen extends Component {
     headerTitle: <Header user={navigation.state.params.user} />,
   });
 
+  constructor(props, context) {
+    super(props, context);
+
+    const { navigation, user } = props;
+    const { socket } = context;
+
+    socket.emit('visualize', { sender: navigation.state.params.user, receiver: user });
+  }
+
   render() {
-    return (
-      <SocketContextProvider>
-        <Chat />
-      </SocketContextProvider>
-    );
+    return <Chat />;
   }
 }
 
@@ -31,6 +37,15 @@ ChatScreen.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default ChatScreen;
+ChatScreen.contextType = SocketContext;
+
+const mapStateToProps = state => {
+  return { user: state.user.user };
+};
+
+export default connect(mapStateToProps)(ChatScreen);

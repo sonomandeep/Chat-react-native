@@ -45,6 +45,7 @@ const Chat = ({ navigation }) => {
       message,
       senderUserID: user._id,
       receiverUserID: navigation.state.params.user._id,
+      isVisualized: false,
       createdAt: Date(),
     };
 
