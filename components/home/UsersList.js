@@ -6,7 +6,7 @@ import { MainStyles } from '../../style/styles';
 import User from './User';
 
 const UsersList = ({ users, query }) => {
-  const [usersList, setUsersList] = useState(users);
+  const [usersList, setUsersList] = useState([]);
 
   const compareUsers = (a, b) => {
     const aCreatedAt = a.messages[a.messages.length - 1].createdAt;
@@ -24,7 +24,7 @@ const UsersList = ({ users, query }) => {
   };
 
   useEffect(() => {
-    setUsersList(usersList.sort(compareUsers));
+    setUsersList([...users.sort(compareUsers)]);
   }, [users]);
 
   return (
