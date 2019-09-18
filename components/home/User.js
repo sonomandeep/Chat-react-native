@@ -66,7 +66,7 @@ const User = ({ data, navigation }) => {
         {messages.length > 0 && (
           <View>
             <Text style={styles.hour}>
-              {moment(new Date(messages[messages.length - 1].createdAt))
+              {moment(new Date(messages[0].createdAt))
                 .startOf()
                 .fromNow()}
             </Text>

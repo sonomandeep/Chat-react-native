@@ -11,8 +11,12 @@ export default function chatReducer(state = initialState, { type, payload }) {
       return { ...state, users: payload };
 
     case 'SEND_MESSAGE':
-      users = [...state.users];
-      users.map(u => u.user._id === payload.receiverUserID && u.messages.push(payload));
+      users = state.users.map(u => {
+        if (u.user._id === payload.receiverUserID) {
+          return { ...u, messages: [payload, ...u.messages] };
+        }
+        return u;
+      });
 
       return {
         ...state,
@@ -20,8 +24,12 @@ export default function chatReducer(state = initialState, { type, payload }) {
       };
 
     case 'RECEIVE_MESSAGE':
-      users = [...state.users];
-      users.map(u => u.user._id === payload.senderUserID && u.messages.push(payload));
+      users = state.users.map(u => {
+        if (u.user._id === payload.senderUserID) {
+          return { ...u, messages: [payload, ...u.messages] };
+        }
+        return u;
+      });
 
       return {
         ...state,

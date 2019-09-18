@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState, createRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { StyleSheet, View, Text, SectionList, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import { FlatList } from 'react-native-gesture-handler';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+// import moment from 'moment';
 import Message from './Message';
 import Input from './Input';
 import { MainStyles, Colors } from '../../style/styles';
@@ -27,17 +27,37 @@ const Chat = ({ navigation }) => {
   const { socket } = useContext(SocketContext);
   const user = useSelector(state => state.user.user);
   const dispatch = useDispatch();
-  let messageList = createRef();
   const activeUser = useSelector(state =>
     state.chat.users.find(u => u.user._id === navigation.state.params.user._id)
   );
 
   const [messages, setMessages] = useState([]);
 
+  // const formatData = data => {
+  //   const messagesByDate = data.reduce((acc, m) => {
+  //     const foundIndex = acc.findIndex(
+  //       element => element.key === moment(m.createdAt).format('DD MMM YY')
+  //     );
+  //     if (foundIndex === -1) {
+  //       return [
+  //         ...acc,
+  //         {
+  //           key: moment(m.createdAt).format('DD MMM YY'),
+  //           data: [{ ...m }],
+  //         },
+  //       ];
+  //     }
+  //     acc[foundIndex].data = [...acc[foundIndex].data, { ...m }];
+  //     return acc;
+  //   }, []);
+
+  //   return messagesByDate;
+  // };
+
   useEffect(() => {
     setMessages(activeUser.messages);
     if (user && activeUser) {
-      socket.emit('visualize', { sender: user, receiver: activeUser._id });
+      socket.emit('visualize', { sender: user, receiver: activeUser.user });
     }
   }, [activeUser]);
 
@@ -58,14 +78,13 @@ const Chat = ({ navigation }) => {
   return (
     <View style={[MainStyles.containerWithoutPadding, styles.wrapper]}>
       <FlatList
-        ref={e => {
-          messageList = e;
-        }}
-        style={styles.messageList}
+        // sections={formatData(messages)}
+        // renderSectionHeader={({ section: { key } }) => <Text style={styles.header}>{key}</Text>}
         data={messages}
+        style={styles.messageList}
         renderItem={({ item }) => <Message message={item} />}
         keyExtractor={item => item._id}
-        onContentSizeChange={() => messageList.scrollToEnd({ animated: false })}
+        inverted
       />
       <Input sendMessage={sendMessage} />
       <KeyboardSpacer />
