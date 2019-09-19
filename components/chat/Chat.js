@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, SectionList, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';

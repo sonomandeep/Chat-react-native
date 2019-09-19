@@ -32,12 +32,31 @@ const styles = StyleSheet.create({
   },
   name: { ...Fonts.headLine },
   message: { ...Fonts.body },
+  right: { justifyContent: 'center' },
   hour: { ...Fonts.lowContrast },
+  newMessages: {
+    backgroundColor: Colors.primary,
+    width: 12,
+    height: 12,
+    borderRadius: 500,
+    alignSelf: 'center',
+  },
 });
 
 const User = ({ data, navigation }) => {
   const { user, messages } = data;
   moment.locale('it');
+
+  const getLastReceivedMessage = array => {
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      if (array[i].senderUserID === user._id) {
+        return array[i];
+      }
+    }
+    return null;
+  };
+
+  const lastReceivedMessage = getLastReceivedMessage(messages);
 
   return (
     <TouchableOpacity
@@ -64,7 +83,10 @@ const User = ({ data, navigation }) => {
           </View>
         </View>
         {messages.length > 0 && (
-          <View>
+          <View style={styles.right}>
+            {lastReceivedMessage && !lastReceivedMessage.isVisualized ? (
+              <View style={styles.newMessages} />
+            ) : null}
             <Text style={styles.hour}>
               {moment(new Date(messages[0].createdAt))
                 .startOf()
