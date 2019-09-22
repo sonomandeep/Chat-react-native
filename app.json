@@ -29,6 +29,9 @@
     },
     "android": {
       "package": "it.emes.test.chat"
-    }
-  }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Chat",
+  "name": "chat"
 }
