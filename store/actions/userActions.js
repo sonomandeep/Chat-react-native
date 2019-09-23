@@ -13,3 +13,6 @@ export const signupAction = (username, password) => dispatch => {
     .then(dispatch({ type: 'SIGNUP' }))
     .catch(error => console.log(error));
 };
+
+export const setFcmToken = fcmToken => dispatch =>
+  dispatch({ type: 'SET_FCM_TOKEN', payload: fcmToken });

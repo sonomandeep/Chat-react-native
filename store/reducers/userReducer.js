@@ -5,6 +5,9 @@ export default function userReducer(state = initialState, action) {
     case 'LOGIN':
       return { ...state, user: action.user };
 
+    case 'SET_FCM_TOKEN':
+      return { ...state, fcmToken: action.payload };
+
     default:
       return state;
   }
