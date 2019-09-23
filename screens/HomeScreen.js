@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logoutAction } from '../store/actions/userActions';
+import { logoutAction, setFcmTokenAction } from '../store/actions/userActions';
 import {
   getUsersAction,
   receiveMessageAction,
@@ -43,8 +43,9 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    const { getUsers, user, navigation } = this.props;
+    const { getUsers, user, navigation, setFcmToken, fcmToken } = this.props;
     getUsers(user._id);
+    setFcmToken(user._id, fcmToken);
     navigation.setParams({ handleQueryChange: this.handleQueryChange });
   }
 
@@ -73,11 +74,13 @@ HomeScreen.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
   }).isRequired,
+  fcmToken: PropTypes.string.isRequired,
   users: PropTypes.instanceOf(Array),
   logout: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
   setMessageVisualized: PropTypes.func.isRequired,
+  setFcmToken: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
@@ -88,12 +91,14 @@ HomeScreen.contextType = SocketContext;
 
 const mapStateToProps = state => ({
   user: state.user.user,
+  fcmToken: state.user.fcmToken,
   users: state.chat.users,
 });
 
 export default connect(
   mapStateToProps,
   {
+    setFcmToken: setFcmTokenAction,
     logout: logoutAction,
     getUsers: getUsersAction,
     receiveMessage: receiveMessageAction,

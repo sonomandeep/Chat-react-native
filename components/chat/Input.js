@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Colors, Fonts } from '../../style/styles';
 
 const styles = StyleSheet.create({
@@ -58,7 +59,7 @@ const Input = ({ sendMessage }) => {
         style={styles.input}
       />
       <TouchableOpacity onPress={handleSendMessage} style={styles.button}>
-        <View />
+        <Icon name="paper-plane" size={40} color={Colors.primary} />
       </TouchableOpacity>
     </View>
   );
