@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { Colors, Fonts } from '../../style/styles';
 
@@ -59,7 +58,7 @@ const Input = ({ sendMessage }) => {
         style={styles.input}
       />
       <TouchableOpacity onPress={handleSendMessage} style={styles.button}>
-        <Ionicons name="ios-paper-plane" size={40} color={Colors.primary} />
+        <View />
       </TouchableOpacity>
     </View>
   );
