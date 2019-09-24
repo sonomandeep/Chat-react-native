@@ -44,6 +44,7 @@ export default class App extends Component {
           fireDate: date.getTime(),
         });
         notification.android.setChannelId('message-channel').android.setSmallIcon('ic_launcher');
+        notification.android.setGroup('message-group');
 
         firebase.notifications().displayNotification(notification);
       });

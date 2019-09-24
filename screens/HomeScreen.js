@@ -36,6 +36,10 @@ class HomeScreen extends Component {
       props.setMessageVisualized(data);
     });
 
+    const { getUsers, user, setFcmToken, fcmToken } = this.props;
+    getUsers(user._id);
+    setFcmToken(user._id, fcmToken);
+
     this.state = {
       users: props.users,
       query: '',
@@ -43,9 +47,7 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    const { getUsers, user, navigation, setFcmToken, fcmToken } = this.props;
-    getUsers(user._id);
-    setFcmToken(user._id, fcmToken);
+    const { navigation } = this.props;
     navigation.setParams({ handleQueryChange: this.handleQueryChange });
   }
 

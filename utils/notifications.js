@@ -12,6 +12,15 @@ export const createChannel = () => {
 
   // Create the channel
   firebase.notifications().android.createChannel(channel);
+
+  // Build a channel group
+  // const channelGroup = new firebase.notifications.Android.ChannelGroup(
+  //   'message-group',
+  //   'Messages group'
+  // );
+
+  // Create the channel group
+  // firebase.notifications().android.createChannelGroup(channelGroup);
 };
 
 export const getToken = () => {
