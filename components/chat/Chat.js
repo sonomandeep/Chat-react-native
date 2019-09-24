@@ -65,7 +65,7 @@ const Chat = ({ navigation }) => {
   const sendMessage = message => {
     const data = {
       _id: uuid(),
-      message,
+      message: message.trim(),
       senderUserID: user._id,
       receiverUserID: navigation.state.params.user._id,
       isVisualized: false,

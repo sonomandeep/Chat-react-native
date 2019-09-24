@@ -46,8 +46,10 @@ const Input = ({ sendMessage }) => {
   };
 
   const handleSendMessage = () => {
-    sendMessage(message);
-    setMessage('');
+    if (message.trim() !== '') {
+      sendMessage(message);
+      setMessage('');
+    }
   };
 
   return (

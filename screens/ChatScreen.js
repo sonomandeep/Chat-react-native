@@ -18,7 +18,8 @@ class ChatScreen extends Component {
     const { navigation, user } = props;
     const { socket } = context;
 
-    socket.emit('visualize', { sender: navigation.state.params.user, receiver: user });
+    console.log(navigation.state.params.user);
+    // socket.emit('visualize', { receiver: navigation.state.params.user, sender: user });
   }
 
   render() {

@@ -2,7 +2,7 @@ import firebase from 'react-native-firebase';
 import { setFcmTokenAction } from '../store/actions/userActions';
 import { store } from '../store/store';
 
-export const createChannel = () => {
+export const createChannel = async () => {
   // Build a channel
   const channel = new firebase.notifications.Android.Channel(
     'message-channel',
@@ -11,7 +11,7 @@ export const createChannel = () => {
   ).setDescription('Messages channel');
 
   // Create the channel
-  firebase.notifications().android.createChannel(channel);
+  await firebase.notifications().android.createChannel(channel);
 
   // Build a channel group
   // const channelGroup = new firebase.notifications.Android.ChannelGroup(

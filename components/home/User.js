@@ -48,7 +48,7 @@ const User = ({ data, navigation }) => {
   moment.locale('it');
 
   const getLastReceivedMessage = array => {
-    for (let i = array.length - 1; i > 0; i -= 1) {
+    for (let i = 0; i < array.length; i += 1) {
       if (array[i].senderUserID === user._id) {
         return array[i];
       }
@@ -77,7 +77,7 @@ const User = ({ data, navigation }) => {
             <Text style={styles.name}>{user.username}</Text>
             {messages.length > 0 && (
               <Text style={styles.message} numberOfLines={1}>
-                {messages[messages.length - 1].message}
+                {messages[0].message}
               </Text>
             )}
           </View>
