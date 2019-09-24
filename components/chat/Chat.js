@@ -73,7 +73,7 @@ const Chat = ({ navigation }) => {
     };
 
     sendNotification({
-      fmcToken: navigation.state.params.user.fcmToken,
+      fcmToken: navigation.state.params.user.fcmToken,
       title: navigation.state.params.user.username,
       body: data.message,
     });
