@@ -94,7 +94,6 @@ const Chat = ({ navigation }) => {
         inverted
       />
       <Input sendMessage={sendMessage} />
-      <KeyboardSpacer />
     </View>
   );
 };
