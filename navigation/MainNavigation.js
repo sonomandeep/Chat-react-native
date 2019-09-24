@@ -11,7 +11,7 @@ const AppTabBar = createBottomTabNavigator({
 });
 
 const AuthSwitch = createSwitchNavigator({
-  login: LoginScreen,
+  Login: LoginScreen,
 });
 
 export default createAppContainer(

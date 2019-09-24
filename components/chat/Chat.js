@@ -11,6 +11,7 @@ import Input from './Input';
 import { MainStyles, Colors } from '../../style/styles';
 import { SocketContext } from '../../context/SocketContext';
 import { sendMessageAction } from '../../store/actions/chatActions';
+import { sendNotification } from '../../utils/api';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -71,6 +72,12 @@ const Chat = ({ navigation }) => {
       createdAt: Date(),
     };
 
+    sendNotification({
+      fcmToken: navigation.state.params.user.fcmToken,
+      title: navigation.state.params.user.username,
+      body: data.message,
+    });
+
     socket.emit('send_message', data);
     dispatch(sendMessageAction(data));
   };
@@ -87,7 +94,6 @@ const Chat = ({ navigation }) => {
         inverted
       />
       <Input sendMessage={sendMessage} />
-      <KeyboardSpacer />
     </View>
   );
 };
@@ -99,6 +105,8 @@ Chat.propTypes = {
         messages: PropTypes.instanceOf(Array).isRequired,
         user: PropTypes.shape({
           _id: PropTypes.string.isRequired,
+          fcmToken: PropTypes.string.isRequired,
+          username: PropTypes.string.isRequired,
         }),
       }).isRequired,
     }).isRequired,

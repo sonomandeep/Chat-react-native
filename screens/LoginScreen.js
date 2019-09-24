@@ -67,26 +67,24 @@ class LoginScreen extends Component {
       <View style={[MainStyles.container, MainStyles.alignCenterVertically]}>
         <Text style={styles.title}>Chat</Text>
         <Text style={{ ...Fonts.headerTwo }}>Accedi</Text>
-        <KeyboardAvoidingView behavior="padding">
-          <InputField
-            style={styles.marginTop}
-            placeHolder="Username"
-            name="username"
-            value={username}
-            onChangeHandler={this.onChangeHandler}
-            error={error}
-          />
-          <InputField
-            style={styles.marginTop}
-            placeHolder="Password"
-            name="password"
-            value={password}
-            onChangeHandler={this.onChangeHandler}
-            secureTextEntry
-            error={error}
-          />
-          <PrimaryButton style={styles.marginTop} text="Accedi" pressHandler={this.submit} />
-        </KeyboardAvoidingView>
+        <InputField
+          style={styles.marginTop}
+          placeHolder="Username"
+          name="username"
+          value={username}
+          onChangeHandler={this.onChangeHandler}
+          error={error}
+        />
+        <InputField
+          style={styles.marginTop}
+          placeHolder="Password"
+          name="password"
+          value={password}
+          onChangeHandler={this.onChangeHandler}
+          secureTextEntry
+          error={error}
+        />
+        <PrimaryButton style={styles.marginTop} text="Accedi" pressHandler={this.submit} />
         <View style={MainStyles.alignCenter}>
           <View style={MainStyles.alignCenter}>
             <Text style={styles.textLowContract}>Hai dimenticato le credenziali?</Text>
