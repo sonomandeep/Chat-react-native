@@ -37,7 +37,7 @@ export default function chatReducer(state = initialState, { type, payload }) {
       };
 
     case 'MESSAGE_VISUALIZED':
-      user = state.users.find(u => u.user._id === payload.receiver);
+      user = state.users.find(u => u.user._id === payload.sender);
       users = state.users.filter(u => u.user._id !== user.user._id);
       messages = [...user.messages];
 

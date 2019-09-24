@@ -59,7 +59,7 @@ const Input = ({ sendMessage }) => {
         style={styles.input}
       />
       <TouchableOpacity onPress={handleSendMessage} style={styles.button}>
-        <Icon name="paper-plane" size={40} color={Colors.primary} />
+        <Icon name="paper-plane" size={34} color={Colors.primary} />
       </TouchableOpacity>
     </View>
   );
