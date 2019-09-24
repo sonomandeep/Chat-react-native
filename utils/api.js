@@ -18,7 +18,7 @@ export const getUsers = async _id => {
   return res.data;
 };
 
-export const setFcmToken = async (_id, fcmToken) => {
+export const setFcmTokenApi = async (_id, fcmToken) => {
   await axios.post(SET_FCM_TOKEN, { _id, fcmToken });
 };
 

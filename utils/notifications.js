@@ -1,5 +1,5 @@
 import firebase from 'react-native-firebase';
-import { setFcmToken } from '../store/actions/userActions';
+import { setFcmTokenAction } from '../store/actions/userActions';
 import { store } from '../store/store';
 
 export const createChannel = () => {
@@ -18,7 +18,7 @@ export const getToken = () => {
   firebase
     .messaging()
     .getToken()
-    .then(data => store.dispatch(setFcmToken(data)))
+    .then(data => store.dispatch(setFcmTokenAction(store.getState().user.user._id, data)))
     .catch(error => console.log('Errore durante il getToken:', error));
 };
 

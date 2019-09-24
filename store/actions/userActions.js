@@ -1,4 +1,4 @@
-import { login, setFcmToken } from '../../utils/api';
+import { login, setFcmTokenApi } from '../../utils/api';
 
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());
@@ -16,5 +16,5 @@ export const signupAction = (username, password) => dispatch => {
 
 export const setFcmTokenAction = (_id, fcmToken) => dispatch => {
   dispatch({ type: 'SET_FCM_TOKEN', payload: fcmToken });
-  setFcmToken(_id, fcmToken);
+  setFcmTokenApi(_id, fcmToken);
 };
