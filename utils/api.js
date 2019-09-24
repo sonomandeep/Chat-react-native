@@ -30,21 +30,6 @@ export const sendNotification = async data => {
     },
   };
 
-  // {
-  //   to: 'YOUR_FCM_TOKEN_WILL_BE_HERE',
-  //   collapse_key: 'type_a',
-  //   notification: {
-  //     body: 'Body of Your Notification',
-  //     title: 'Title of Your Notification',
-  //   },
-  //   data: {
-  //     body: 'Body of Your Notification in Data',
-  //     title: 'Title of Your Notification in Title',
-  //     key_1: 'Value for key_1',
-  //     key_2: 'Value for key_2',
-  //   },
-  // };
-
   const payload = {
     to: data.fcmToken,
     content_available: true,
@@ -66,5 +51,8 @@ export const sendNotification = async data => {
     priority: 'high',
   };
 
-  axios.post(FCM_SEND_NOTIFICATION, payload, config);
+  axios
+    .post(FCM_SEND_NOTIFICATION, payload, config)
+    .then('Notifica inviata:', payload)
+    .catch(error => console.log("Errore durante l'invio della notifica:", error));
 };

@@ -9,9 +9,9 @@ const socket = openSocket(API_LINK, {
   jsonp: false,
 });
 
-socket.on('connect', () => {
-  console.log('Connesso');
-});
+// socket.on('connect', () => {
+//   console.log('Connesso');
+// });
 
 export const SocketContext = createContext({ socket });
 

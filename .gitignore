@@ -602,3 +602,4 @@ hs_err_pid*
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/node,gradle,android,reactnative,intellij+all,androidstudio,visualstudiocode
+android/app/my-upload-key.keystore
