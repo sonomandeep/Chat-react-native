@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import PropTypes from 'prop-types';
 import { MainStyles, Fonts, Colors } from '../../../style/styles';
-import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
 const styles = StyleSheet.create({
   title: {
@@ -24,28 +25,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const Login = ({ navigation }) => {
+const Signup = ({ navigation }) => {
   return (
     <View style={[MainStyles.container, MainStyles.alignCenterVertically]}>
       <Text style={styles.title}>Chat</Text>
-      <Text style={{ ...Fonts.headerTwo }}>Accedi</Text>
+      <Text style={{ ...Fonts.headerTwo }}>Iscriviti</Text>
 
-      <LoginForm />
+      <SignupForm />
 
       <View style={MainStyles.alignCenter}>
-        <TouchableHighlight style={MainStyles.alignCenter}>
-          <>
-            <Text style={styles.textLowContract}>Hai dimenticato le credenziali?</Text>
-            <Text style={styles.text}>Richiedi assistenza.</Text>
-          </>
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => navigation.navigate('Signup')}
-          style={MainStyles.alignCenter}
-        >
+        <View style={MainStyles.alignCenter}>
+          <Text style={styles.textLowContract}>Problemi con l'iscrizione?</Text>
+          <Text style={styles.text}>Richiedi assistenza.</Text>
+        </View>
+        <TouchableHighlight onPress={() => navigation.navigate('Login')}>
           <View style={[MainStyles.alignCenter, styles.iscrivitiView]}>
-            <Text style={styles.textLowContract}>Non possiedi un account?</Text>
-            <Text style={styles.text}>Creane uno.</Text>
+            <Text style={styles.textLowContract}>Sei già iscritto?</Text>
+            <Text style={styles.text}>Accedi subito.</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -53,10 +49,10 @@ const Login = ({ navigation }) => {
   );
 };
 
-Login.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+Signup.propTypes = {
+  PropTypes.shape({
+    navigate: PropTypes.string.isRequired,
   }).isRequired,
-};
+}
 
-export default withNavigation(Login);
+export default withNavigation(Signup);

@@ -4,6 +4,7 @@ import {
   USERS_LIST_LINK,
   FCM_SEND_NOTIFICATION,
   SET_FCM_TOKEN,
+  SIGNUP_LINK,
 } from '../constants/apiLinks';
 
 export const login = async (username, password) => {
@@ -11,7 +12,10 @@ export const login = async (username, password) => {
   return res;
 };
 
-export const signup = () => {};
+export const signup = async (name, email, username, password) => {
+  const res = await axios.post(SIGNUP_LINK, { email, name, username, password });
+  return res.data;
+};
 
 export const getUsers = async _id => {
   const res = await axios.post(USERS_LIST_LINK, { userID: _id });
