@@ -76,7 +76,7 @@ HomeScreen.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
   }).isRequired,
-  fcmToken: PropTypes.string.isRequired,
+  fcmToken: PropTypes.string,
   users: PropTypes.instanceOf(Array),
   logout: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
@@ -87,6 +87,7 @@ HomeScreen.propTypes = {
 
 HomeScreen.defaultProps = {
   users: [],
+  fcmToken: '',
 };
 
 HomeScreen.contextType = SocketContext;

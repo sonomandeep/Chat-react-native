@@ -34,8 +34,8 @@ class SocketContextProvider extends Component {
 SocketContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
   user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
+    username: PropTypes.string,
+    _id: PropTypes.string,
   }),
 };
 
