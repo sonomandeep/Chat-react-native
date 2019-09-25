@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
+import firebase from 'react-native-firebase';
 import InputField from '../../input/InputField';
 import PrimaryButton from '../../input/Button';
-import { signupAction } from '../../../store/actions/userActions';
+import { signupAction, setFcmTokenAction } from '../../../store/actions/userActions';
 
 const styles = StyleSheet.create({
   marginTop: { marginTop: 15 },
@@ -21,11 +22,13 @@ const SignupForm = ({ navigation }) => {
 
   const submit = async () => {
     let data;
+    const fcmToken = await firebase.messaging().getToken();
     try {
       data = await dispatch(signupAction(name, email, username, password));
       if (data.error) {
         setError(true);
       } else {
+        dispatch(setFcmTokenAction(data.user._id, fcmToken));
         navigation.navigate('Home');
       }
     } catch (ex) {

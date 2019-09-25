@@ -50,9 +50,9 @@ const Signup = ({ navigation }) => {
 };
 
 Signup.propTypes = {
-  PropTypes.shape({
-    navigate: PropTypes.string.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
-}
+};
 
 export default withNavigation(Signup);
