@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, SectionList, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 // import moment from 'moment';
 import Message from './Message';
 import Input from './Input';

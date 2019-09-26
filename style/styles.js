@@ -18,6 +18,7 @@ export const Fonts = {
   title: { fontSize: 34, fontWeight: 'bold', color: Colors.black },
   headerOne: { fontSize: 28, fontWeight: 'normal', color: Colors.black },
   headerTwo: { fontSize: 22, fontWeight: 'normal', color: Colors.black },
+  headerTwoSemiBold: { fontSize: 22, fontWeight: '600', color: Colors.black },
   headLine: { fontSize: 17, fontWeight: '600', color: Colors.gray },
   body: { fontSize: 17, fontWeight: 'normal', color: Colors.gray },
   lowContrast: { fontSize: 15, fontWeight: '200', color: Colors.lightGray },

@@ -9,22 +9,27 @@ import LoginScreen from '../screens/LoginScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SignupScreen from '../screens/SignupScreen';
 
-const AppTabBar = createBottomTabNavigator({
-  Home: {
-    screen: HomeStack,
-    navigationOptions: {
-      tabBarlabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />,
+const AppTabBar = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeStack,
+      navigationOptions: {
+        tabBarlabel: 'Home',
+        tabBarIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />,
+      },
+    },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        tabBarlabel: 'Settings',
+        tabBarIcon: ({ tintColor }) => <Icon name="cog" size={25} color={tintColor} />,
+      },
     },
   },
-  Settings: {
-    screen: SettingsScreen,
-    navigationOptions: {
-      tabBarlabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Icon name="cog" size={25} color={tintColor} />,
-    },
-  },
-});
+  {
+    initialRouteName: 'Settings',
+  }
+);
 
 const AuthSwitch = createSwitchNavigator({
   Login: LoginScreen,
