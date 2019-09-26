@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ViewPropTypes } from 'react-native';
+import { View, Text, StyleSheet, ViewPropTypes, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
-import { TouchableHighlight, TouchableNativeFeedback } from 'react-native-gesture-handler';
 import { Colors, Fonts } from '../../style/styles';
 
 const styles = StyleSheet.create({
@@ -14,21 +13,34 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    height: 60,
+    height: 70,
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   left: { flexDirection: 'row' },
-  icon: { paddingRight: 15 },
+  icon: {
+    marginRight: 15,
+    width: 28,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
   title: {},
   right: {},
   childre: {},
 });
 
-const SettingsSection = ({ title, iconName, iconSize, iconColor, children, style }) => {
-  const [isOpened, setOpened] = useState(false);
+const SettingsSection = ({
+  title,
+  iconName,
+  iconSize,
+  iconColor,
+  children,
+  style,
+  defaultOpened,
+}) => {
+  const [isOpened, setOpened] = useState(!!defaultOpened);
 
   return (
     <View style={[{ ...style }, styles.wrapper]}>
@@ -37,9 +49,9 @@ const SettingsSection = ({ title, iconName, iconSize, iconColor, children, style
           <Icon style={styles.icon} name={iconName} size={iconSize} color={iconColor} />
           <Text style={{ ...Fonts.headerTwoSemiBold }}>{title}</Text>
         </View>
-        <TouchableNativeFeedback onPress={() => setOpened(!isOpened)} style={styles.right}>
+        <TouchableOpacity onPress={() => setOpened(!isOpened)} style={styles.right}>
           <Icon name={isOpened ? 'angle-up' : 'angle-down'} size={30} color={Colors.primary} />
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
       </View>
       {isOpened && <View>{children}</View>}
     </View>
@@ -53,10 +65,12 @@ SettingsSection.propTypes = {
   iconColor: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   style: ViewPropTypes.style,
+  defaultOpened: PropTypes.bool,
 };
 
 SettingsSection.defaultProps = {
   style: {},
+  defaultOpened: false,
 };
 
 export default SettingsSection;

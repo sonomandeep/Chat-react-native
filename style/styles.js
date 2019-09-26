@@ -1,7 +1,6 @@
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
-// const { height } = Dimensions.get('window');
 
 export const Colors = {
   primary: '#33E1ED',
@@ -19,7 +18,7 @@ export const Fonts = {
   headerOne: { fontSize: 28, fontWeight: 'normal', color: Colors.black },
   headerTwo: { fontSize: 22, fontWeight: 'normal', color: Colors.black },
   headerTwoSemiBold: { fontSize: 22, fontWeight: '600', color: Colors.black },
-  headLine: { fontSize: 17, fontWeight: '600', color: Colors.gray },
+  headLine: { fontSize: 17, fontWeight: '500', color: Colors.gray },
   body: { fontSize: 17, fontWeight: 'normal', color: Colors.gray },
   lowContrast: { fontSize: 15, fontWeight: '200', color: Colors.lightGray },
 };

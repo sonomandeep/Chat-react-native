@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { View, Button, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native-gesture-handler';
 import { MainStyles, Colors } from '../../style/styles';
 import SettingsSection from './SettingsSection';
+import ProfileSettings from './ProfileSettings';
 
 const styles = StyleSheet.create({
   main: { backgroundColor: Colors.lowConstrastGray },
@@ -16,6 +17,8 @@ const styles = StyleSheet.create({
 });
 
 const Settings = ({ navigation }) => {
+  const iconSize = 28;
+  const user = useSelector(state => state.user.user);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -38,16 +41,28 @@ const Settings = ({ navigation }) => {
           title="Profile"
           iconName="user"
           iconColor={Colors.primary}
-          iconSize={28}
+          iconSize={iconSize}
+          defaultOpened
         >
-          <Text>Children</Text>
+          <ProfileSettings user={user} />
         </SettingsSection>
+
+        <SettingsSection
+          style={styles.section}
+          title="Statistiche"
+          iconName="info"
+          iconColor={Colors.primary}
+          iconSize={iconSize}
+        >
+          <View />
+        </SettingsSection>
+
         <SettingsSection
           style={styles.section}
           title="Esci"
-          iconName="user"
+          iconName="sign-out"
           iconColor={Colors.primary}
-          iconSize={28}
+          iconSize={iconSize}
         >
           <Button title="Logout" onPress={handleLogout} />
         </SettingsSection>
