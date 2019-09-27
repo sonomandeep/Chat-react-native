@@ -5,3 +5,5 @@ export const SIGNUP_LINK = `${API_LINK}/signup`;
 export const USERS_LIST_LINK = `${API_LINK}/users`;
 export const SET_FCM_TOKEN = `${API_LINK}/push_token`;
 export const FCM_SEND_NOTIFICATION = 'https://fcm.googleapis.com/fcm/send';
+
+export const getProfileUpdateLink = username => `${API_LINK}/${username}/update`;

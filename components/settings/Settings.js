@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Button, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
-import { ScrollView } from 'react-native-gesture-handler';
 import uuid from 'uuid/v4';
 import { MainStyles, Colors } from '../../style/styles';
 import SettingsSection from './SettingsSection';

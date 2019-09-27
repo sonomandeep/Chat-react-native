@@ -1,4 +1,4 @@
-import { login, setFcmTokenApi, signup } from '../../utils/api';
+import { login, setFcmTokenApi, signup, updateProfile } from '../../utils/api';
 
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());
@@ -22,4 +22,12 @@ export const logoutAction = () => dispatch => dispatch({ type: 'LOGOUT' });
 export const setFcmTokenAction = (_id, fcmToken) => dispatch => {
   dispatch({ type: 'SET_FCM_TOKEN', payload: fcmToken });
   setFcmTokenApi(_id, fcmToken);
+};
+
+export const updateProfileAction = data => (dispatch, getState) => {
+  const state = getState();
+  const { username } = state.user;
+
+  const res = updateProfile(username, data);
+  console.log('UpdateProfileAction:', res);
 };

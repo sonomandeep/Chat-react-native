@@ -3,6 +3,7 @@ import { View, Text, Image, TextInput, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ImagePicker from 'react-native-image-picker';
 import { Fonts, Colors, MainStyles } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 import Button from '../input/Button';
@@ -13,8 +14,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    width: 50,
-    height: 50,
+    marginTop: 10,
+    width: 60,
+    height: 60,
     borderColor: Colors.primary,
     borderWidth: 2,
     borderRadius: 500,
@@ -35,12 +37,13 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     flex: 1,
+    marginTop: 12,
     alignSelf: 'flex-end',
     flexDirection: 'row',
     alignItems: 'center',
   },
   cancelButton: { marginRight: 24 },
-  button: {},
+  button: { paddingHorizontal: 10 },
 });
 
 const ProfileSettings = ({ user, data }) => {
@@ -50,6 +53,7 @@ const ProfileSettings = ({ user, data }) => {
     email: user.email,
     password: '',
   });
+  const [imageUrl, setImageUrl] = useState(null);
   const iconSize = 24;
 
   const changeUpdating = () => {
@@ -64,6 +68,33 @@ const ProfileSettings = ({ user, data }) => {
       password: '',
     });
     setUpdating(false);
+  };
+
+  const options = {
+    title: 'Select Avatar',
+    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+
+  const handleImageUpload = () => {
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+
+        setImageUrl(source);
+      }
+    });
   };
 
   const infoList = data.map(d => (
@@ -82,12 +113,16 @@ const ProfileSettings = ({ user, data }) => {
   return (
     <View style={[styles.wrapper]}>
       <View style={styles.imageWrapper}>
-        <Image
-          style={styles.profileImage}
-          source={{
-            uri: user.profileImageURL ? getImageLink(user.profileImageURL) : PLACEHOLDER_IMAGE_LINK,
-          }}
-        />
+        <TouchableOpacity onPress={handleImageUpload}>
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri: user.profileImageURL
+                ? getImageLink(user.profileImageURL)
+                : PLACEHOLDER_IMAGE_LINK,
+            }}
+          />
+        </TouchableOpacity>
       </View>
 
       <View>

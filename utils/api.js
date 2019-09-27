@@ -5,6 +5,7 @@ import {
   FCM_SEND_NOTIFICATION,
   SET_FCM_TOKEN,
   SIGNUP_LINK,
+  getProfileUpdateLink,
 } from '../constants/apiLinks';
 
 export const login = async (username, password) => {
@@ -59,4 +60,15 @@ export const sendNotification = async data => {
     .post(FCM_SEND_NOTIFICATION, payload, config)
     .then('Notifica inviata:', payload)
     .catch(error => console.log("Errore durante l'invio della notifica:", error));
+};
+
+export const updateProfile = async (username, data) => {
+  try {
+    const res = await axios.patch(getProfileUpdateLink(username), data);
+    console.log('Immagine cambiata:', res);
+    return res;
+  } catch (error) {
+    console.log('Errore durante update profilo:', error);
+    return error;
+  }
 };
