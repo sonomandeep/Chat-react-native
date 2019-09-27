@@ -40,4 +40,5 @@ export const MainStyles = {
   fullWidth: { width },
   parentFullWidth: { width: '100%' },
   padding: { mainPadding: 16 },
+  row: { flexDirection: 'row' },
 };

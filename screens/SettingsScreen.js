@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { MainStyles } from '../style/styles';
+/* eslint-disable react/prefer-stateless-function */
+import React, { Component } from 'react';
 import Settings from '../components/settings/Settings';
 
-const SettingsScreen = ({ navigation }) => {
-  return <Settings />;
-};
+class SettingsScreen extends Component {
+  render() {
+    return <Settings />;
+  }
+}
 
 export default SettingsScreen;
