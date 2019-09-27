@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Text, Image, TextInput, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,6 +8,7 @@ import ImagePicker from 'react-native-image-picker';
 import { Fonts, Colors, MainStyles } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 import Button from '../input/Button';
+import { updateProfileImageAction } from '../../store/actions/userActions';
 
 const styles = StyleSheet.create({
   wrapper: { marginBottom: 20, width: '100%', paddingHorizontal: 20 },
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
 });
 
 const ProfileSettings = ({ user, data }) => {
+  const dispatch = useDispatch();
   const [isUpdating, setUpdating] = useState(false);
   const [values, setValues] = useState({
     username: user.username,
@@ -71,8 +74,8 @@ const ProfileSettings = ({ user, data }) => {
   };
 
   const options = {
-    title: 'Select Avatar',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    title: 'Select profile image',
+    // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
     storageOptions: {
       skipBackup: true,
       path: 'images',
@@ -81,8 +84,6 @@ const ProfileSettings = ({ user, data }) => {
 
   const handleImageUpload = () => {
     ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -92,6 +93,7 @@ const ProfileSettings = ({ user, data }) => {
       } else {
         const source = { uri: response.uri };
 
+        dispatch(updateProfileImageAction(source));
         setImageUrl(source);
       }
     });

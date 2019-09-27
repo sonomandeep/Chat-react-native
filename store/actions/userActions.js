@@ -1,4 +1,4 @@
-import { login, setFcmTokenApi, signup, updateProfile } from '../../utils/api';
+import { login, setFcmTokenApi, signup, updateProfile, updateProfileImage } from '../../utils/api';
 
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());
@@ -30,4 +30,11 @@ export const updateProfileAction = data => (dispatch, getState) => {
 
   const res = updateProfile(username, data);
   console.log('UpdateProfileAction:', res);
+};
+
+export const updateProfileImageAction = data => (dispatch, getState) => {
+  const state = getState();
+  const { username } = state.user.user;
+
+  updateProfileImage(username, data).then(res => dispatch({ type: 'SET_USER', payload: res.data }));
 };

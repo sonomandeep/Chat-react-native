@@ -7,3 +7,4 @@ export const SET_FCM_TOKEN = `${API_LINK}/push_token`;
 export const FCM_SEND_NOTIFICATION = 'https://fcm.googleapis.com/fcm/send';
 
 export const getProfileUpdateLink = username => `${API_LINK}/${username}/update`;
+export const getProfileImageUpdateLink = username => `${API_LINK}/${username}/update_profile_image`;
