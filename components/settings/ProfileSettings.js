@@ -20,39 +20,60 @@ const styles = StyleSheet.create({
     borderRadius: 500,
   },
   infoSection: {},
-  info: { marginTop: 15 },
+  info: { alignItems: 'center', marginTop: 18 },
   icon: { width: 30, textAlign: 'center' },
-  text: { ...Fonts.body, marginLeft: 12 },
+  input: {
+    ...Fonts.body,
+    padding: 0,
+    paddingBottom: 2,
+    width: '60%',
+    marginLeft: 14,
+  },
+  updatingInput: {
+    borderBottomColor: Colors.lowConstrastGray,
+    borderBottomWidth: 1,
+  },
   buttonSection: {
     flex: 1,
-    width: 100,
     alignSelf: 'flex-end',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  cancelButton: { marginRight: 14 },
+  cancelButton: { marginRight: 24 },
   button: {},
-  input: { ...Fonts.body, paddingVertical: 0, margin: 0, marginLeft: 12 },
 });
 
-const ProfileSettings = ({ user, data, values, onChangeTextHandler }) => {
+const ProfileSettings = ({ user, data }) => {
   const [isUpdating, setUpdating] = useState(false);
+  const [values, setValues] = useState({
+    username: user.username,
+    email: user.email,
+    password: '',
+  });
   const iconSize = 24;
+
+  const changeUpdating = () => {
+    setValues({ username: '', email: '', password: '' });
+    setUpdating(true);
+  };
+
+  const cancelHandler = () => {
+    setValues({
+      username: user.username,
+      email: user.email,
+      password: '',
+    });
+    setUpdating(false);
+  };
 
   const infoList = data.map(d => (
     <View key={d.id} style={[MainStyles.row, styles.info]}>
       <Icon name={d.iconName} size={iconSize} color={Colors.primary} style={styles.icon} />
-      <Text style={styles.text}>{d.text}</Text>
-    </View>
-  ));
-
-  const updatingInfoList = data.map(d => (
-    <View key={d.id} style={[MainStyles.row, styles.info]}>
-      <Icon name={d.iconName} size={iconSize} color={Colors.primary} style={styles.icon} />
       <TextInput
-        style={styles.input}
+        style={[styles.input, isUpdating && styles.updatingInput]}
+        editable={isUpdating}
         value={values[d.fieldName]}
-        onChangeText={value => onChangeTextHandler(value, d.fieldName)}
+        onChangeText={value => setValues({ ...values, [d.fieldName]: value })}
         placeholder={d.placeHolder}
       />
     </View>
@@ -70,17 +91,17 @@ const ProfileSettings = ({ user, data, values, onChangeTextHandler }) => {
       </View>
 
       <View>
-        <View style={styles.infoSection}>{isUpdating ? updatingInfoList : infoList}</View>
+        <View style={styles.infoSection}>{infoList}</View>
 
         <View style={styles.buttonSection}>
           {isUpdating && (
-            <TouchableOpacity style={styles.cancelButton} onPress={() => setUpdating(false)}>
+            <TouchableOpacity style={styles.cancelButton} onPress={cancelHandler}>
               <Text>Annulla</Text>
             </TouchableOpacity>
           )}
           <Button
             text={isUpdating ? 'Conferma' : 'Modifica'}
-            pressHandler={() => setUpdating(true)}
+            pressHandler={changeUpdating}
             style={styles.button}
           />
         </View>
@@ -105,8 +126,6 @@ ProfileSettings.propTypes = {
       placeHolder: PropTypes.string.isRequired,
     })
   ).isRequired,
-  values: PropTypes.instanceOf(Object).isRequired,
-  onChangeTextHandler: PropTypes.func.isRequired,
 };
 
 export default ProfileSettings;

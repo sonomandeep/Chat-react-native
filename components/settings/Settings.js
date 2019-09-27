@@ -46,14 +46,8 @@ class Settings extends Component {
           placeHolder: 'Password',
         },
       ],
-      values: { username: props.user.username, email: props.user.email, password: '' },
     };
   }
-
-  onChangeTextHandler = (value, fieldName) => {
-    const { values } = this.state;
-    this.setState({ values: { ...values, [fieldName]: value } });
-  };
 
   handleLogout = () => {
     const { logout, navigation } = this.props();
@@ -62,7 +56,7 @@ class Settings extends Component {
   };
 
   render() {
-    const { data, values } = this.state;
+    const { data } = this.state;
     const { user } = this.props;
     const iconSize = 28;
 
@@ -84,12 +78,7 @@ class Settings extends Component {
             iconSize={iconSize}
             defaultOpened
           >
-            <ProfileSettings
-              user={user}
-              data={data}
-              values={values}
-              onChangeTextHandler={this.onChangeTextHandler}
-            />
+            <ProfileSettings user={user} data={data} />
           </SettingsSection>
           <SettingsSection
             style={styles.section}
