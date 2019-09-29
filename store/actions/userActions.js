@@ -1,4 +1,11 @@
-import { login, setFcmTokenApi, signup, updateProfile, updateProfileImage } from '../../utils/api';
+import {
+  login,
+  setFcmTokenApi,
+  signup,
+  updateProfile,
+  updateProfileImage,
+  resetPassword,
+} from '../../utils/api';
 
 // export const setUserAction = async dispatch => {};
 
@@ -43,4 +50,15 @@ export const updateProfileImageAction = data => (dispatch, getState) => {
   const { username } = state.user.user;
 
   updateProfileImage(username, data).then(res => dispatch({ type: 'SET_USER', payload: res.data }));
+};
+
+export const resetPasswordAction = email => async dispatch => {
+  try {
+    const res = await resetPassword(email);
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.log('ResetPasswordAction:', error);
+    return error;
+  }
 };

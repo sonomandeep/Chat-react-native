@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { MainStyles, Fonts, Colors } from '../../../style/styles';
@@ -33,17 +33,16 @@ const Login = ({ navigation }) => {
       <LoginForm />
 
       <View style={MainStyles.alignCenter}>
-        <TouchableHighlight
+        <TouchableOpacity
           style={MainStyles.alignCenter}
           onPress={() => navigation.navigate('ForgotPassword')}
         >
           <>
-            {/* <Text style={styles.textLowContract}>Hai dimenticato le credenziali?</Text>
-            <Text style={styles.text}>Richiedi assistenza.</Text> */}
-            <Text style={styles.text}>Hai dimenticato la password?</Text>
+            <Text style={styles.textLowContract}>Hai dimenticato la password?</Text>
+            <Text style={styles.text}>Recuperala subito.</Text>
           </>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => navigation.navigate('Signup')}
           style={MainStyles.alignCenter}
         >
@@ -51,7 +50,7 @@ const Login = ({ navigation }) => {
             <Text style={styles.textLowContract}>Non possiedi un account?</Text>
             <Text style={styles.text}>Creane uno.</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
 import ForgotPassword from '../components/auth/forgotPassword/ForgotPassword';
 
 // eslint-disable-next-line react/prefer-stateless-function

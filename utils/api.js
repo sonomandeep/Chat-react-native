@@ -7,6 +7,7 @@ import {
   SIGNUP_LINK,
   getProfileUpdateLink,
   getProfileImageUpdateLink,
+  RESET_PASSWORD,
 } from '../constants/apiLinks';
 
 export const login = async (username, password) => {
@@ -87,6 +88,17 @@ export const updateProfileImage = async (username, image) => {
     return res;
   } catch (error) {
     console.log('Errore durante il caricamento della foto:', error);
+    return error;
+  }
+};
+
+export const resetPassword = async email => {
+  try {
+    const res = await axios.post(RESET_PASSWORD, { email });
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.log('Errore resetPassword:', error);
     return error;
   }
 };

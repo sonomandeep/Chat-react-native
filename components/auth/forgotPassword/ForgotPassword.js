@@ -1,9 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import PropTypes from 'prop-types';
 import InputField from '../../input/InputField';
 import PrimaryButton from '../../input/Button';
 import { MainStyles, Fonts, Colors } from '../../../style/styles';
+import { resetPasswordAction } from '../../../store/actions/userActions';
 
 const styles = StyleSheet.create({
   wrapper: { width: '100%' },
@@ -20,27 +24,39 @@ const styles = StyleSheet.create({
   text: { ...Fonts.body },
 });
 
-const ForgotPassword = () => {
-  const [code, setCode] = useState('');
-  const { error, setError } = useState(false);
+const ForgotPassword = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
 
-  console.log(error);
+  const handleSendButton = async () => {
+    try {
+      const res = await dispatch(resetPasswordAction(email.trim().toLowerCase()));
+      Alert.alert(
+        'Email inviata',
+        "E' stata inviata un email all'indizzo col quale ti sei iscritto, segui le istruzioni per recuperare la password."
+      );
+      navigation.navigate('ForgotPasswordCode');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <View style={[MainStyles.container, MainStyles.alignCenterVertically]}>
-      <Text style={styles.title}>Chat</Text>
+      <Text style={styles.title}>Recupero password</Text>
       <View>
-        <Text style={styles.header}>Recupero password</Text>
+        <Text style={styles.header}>Indirizzo email</Text>
         <InputField
           style={styles.marginTop}
-          placeHolder="Username"
-          value={code}
-          onChangeHandler={setCode}
+          placeHolder="Es. example@example.com"
+          value={email}
+          onChangeHandler={setEmail}
           error={error}
         />
         <PrimaryButton
-          text="Conferma"
-          pressHandler={() => console.log('Premuto.')}
+          text="Invia email"
+          pressHandler={handleSendButton}
           style={styles.marginTop}
         />
       </View>
@@ -52,4 +68,10 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+ForgotPassword.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withNavigation(ForgotPassword);

@@ -35,7 +35,7 @@ export const requestPermission = async () => {
   try {
     await firebase.messaging().requestPermission();
     // User has authorised
-    getToken();
+    // getToken();
   } catch (error) {
     // User has rejected permissions
     console.log('permission rejected');
@@ -45,7 +45,7 @@ export const requestPermission = async () => {
 export const checkPermission = async () => {
   const enabled = await firebase.messaging().hasPermission();
   if (enabled) {
-    getToken();
+    // getToken();
   } else {
     requestPermission();
   }
