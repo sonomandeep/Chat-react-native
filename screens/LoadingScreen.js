@@ -1,12 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import { View, ActivityIndicator, StatusBar } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MainStyles } from '../style/styles';
 import { SocketContext } from '../context/SocketContext';
 
 function LoadingScreen({ navigation }) {
   const payload = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const { socket } = useContext(SocketContext);
 
   const bootstrap = () => {
@@ -23,6 +24,7 @@ function LoadingScreen({ navigation }) {
         username: payload.user.username,
         _id: payload.user._id,
       });
+      // dispatch();
     }
   }, [payload.user]);
 

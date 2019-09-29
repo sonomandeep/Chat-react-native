@@ -66,7 +66,6 @@ export const sendNotification = async data => {
 export const updateProfile = async (username, data) => {
   try {
     const res = await axios.patch(getProfileUpdateLink(username), data);
-    console.log('Immagine cambiata:', res);
     return res;
   } catch (error) {
     console.log('Errore durante update profilo:', error);

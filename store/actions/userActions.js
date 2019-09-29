@@ -1,5 +1,7 @@
 import { login, setFcmTokenApi, signup, updateProfile, updateProfileImage } from '../../utils/api';
 
+export const setUserAction = async dispatch => {};
+
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());
   dispatch({ type: 'LOGIN', payload: res.data.user });
@@ -24,12 +26,16 @@ export const setFcmTokenAction = (_id, fcmToken) => dispatch => {
   setFcmTokenApi(_id, fcmToken);
 };
 
-export const updateProfileAction = data => (dispatch, getState) => {
+export const updateProfileAction = data => async (dispatch, getState) => {
   const state = getState();
-  const { username } = state.user;
+  const { username } = state.user.user;
 
-  const res = updateProfile(username, data);
-  console.log('UpdateProfileAction:', res);
+  try {
+    const res = await updateProfile(username, data);
+    dispatch({ type: 'SET_USER', payload: { ...res.data } });
+  } catch (error) {
+    console.log('Errore durante updateProfileAction:', error);
+  }
 };
 
 export const updateProfileImageAction = data => (dispatch, getState) => {

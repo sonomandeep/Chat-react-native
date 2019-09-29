@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    height: 70,
+    height: 60,
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',

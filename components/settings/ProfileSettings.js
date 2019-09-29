@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { View, Text, Image, TextInput, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import ImagePicker from 'react-native-image-picker';
 import { Fonts, Colors, MainStyles } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 import Button from '../input/Button';
-import { updateProfileImageAction } from '../../store/actions/userActions';
+import { updateProfileImageAction, updateProfileAction } from '../../store/actions/userActions';
 
 const styles = StyleSheet.create({
   wrapper: { marginBottom: 20, width: '100%', paddingHorizontal: 20 },
@@ -56,13 +56,7 @@ const ProfileSettings = ({ user, data }) => {
     email: user.email,
     password: '',
   });
-  const [imageUrl, setImageUrl] = useState(null);
   const iconSize = 24;
-
-  const changeUpdating = () => {
-    setValues({ username: '', email: '', password: '' });
-    setUpdating(true);
-  };
 
   const cancelHandler = () => {
     setValues({
@@ -71,6 +65,31 @@ const ProfileSettings = ({ user, data }) => {
       password: '',
     });
     setUpdating(false);
+  };
+
+  const changeUpdating = () => {
+    setValues({ username: '', email: '', password: '' });
+    setUpdating(true);
+  };
+
+  let update = {};
+
+  const validate = text => {
+    return text !== null && text !== '';
+  };
+
+  const handleUpdateButton = async () => {
+    changeUpdating();
+
+    if (isUpdating) {
+      Object.keys(values)
+        .filter(f => validate(values[f]))
+        .forEach(element => {
+          update = { ...update, [element]: values[element] };
+        });
+      await dispatch(updateProfileAction(update));
+      cancelHandler();
+    }
   };
 
   const options = {
@@ -84,20 +103,24 @@ const ProfileSettings = ({ user, data }) => {
 
   const handleImageUpload = () => {
     ImagePicker.showImagePicker(options, response => {
-      if (response.didCancel) {
+      if (response.didCancel || response.error) {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = { uri: response.uri };
-
         dispatch(updateProfileImageAction(source));
-        setImageUrl(source);
       }
     });
   };
+
+  useEffect(() => {
+    setValues({
+      username: user.username,
+      email: user.email,
+      password: '',
+    });
+  }, [user]);
 
   const infoList = data.map(d => (
     <View key={d.id} style={[MainStyles.row, styles.info]}>
@@ -138,8 +161,8 @@ const ProfileSettings = ({ user, data }) => {
           )}
           <Button
             text={isUpdating ? 'Conferma' : 'Modifica'}
-            pressHandler={changeUpdating}
             style={styles.button}
+            pressHandler={handleUpdateButton}
           />
         </View>
       </View>

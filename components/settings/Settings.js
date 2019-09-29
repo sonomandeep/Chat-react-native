@@ -49,7 +49,7 @@ class Settings extends Component {
   }
 
   handleLogout = () => {
-    const { logout, navigation } = this.props();
+    const { logout, navigation } = this.props;
     logout();
     navigation.navigate('Auth');
   };
@@ -111,6 +111,7 @@ Settings.propTypes = {
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   }).isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
