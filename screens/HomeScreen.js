@@ -36,9 +36,8 @@ class HomeScreen extends Component {
       props.setMessageVisualized(data);
     });
 
-    const { getUsers, user, setFcmToken, fcmToken } = this.props;
+    const { getUsers, user } = this.props;
     getUsers(user._id);
-    setFcmToken(user._id, fcmToken);
 
     this.state = {
       users: props.users,
@@ -76,32 +75,27 @@ HomeScreen.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
   }).isRequired,
-  fcmToken: PropTypes.string,
   users: PropTypes.instanceOf(Array),
   logout: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
   setMessageVisualized: PropTypes.func.isRequired,
-  setFcmToken: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
   users: [],
-  fcmToken: '',
 };
 
 HomeScreen.contextType = SocketContext;
 
 const mapStateToProps = state => ({
   user: state.user.user,
-  fcmToken: state.user.fcmToken,
   users: state.chat.users,
 });
 
 export default connect(
   mapStateToProps,
   {
-    setFcmToken: setFcmTokenAction,
     logout: logoutAction,
     getUsers: getUsersAction,
     receiveMessage: receiveMessageAction,

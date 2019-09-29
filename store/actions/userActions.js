@@ -1,6 +1,6 @@
 import { login, setFcmTokenApi, signup, updateProfile, updateProfileImage } from '../../utils/api';
 
-export const setUserAction = async dispatch => {};
+// export const setUserAction = async dispatch => {};
 
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());

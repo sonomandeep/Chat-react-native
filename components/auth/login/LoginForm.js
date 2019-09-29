@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import InputField from '../../input/InputField';
 import PrimaryButton from '../../input/Button';
 import { loginAction } from '../../../store/actions/userActions';
+import { getToken } from '../../../utils/notifications';
 
 const styles = StyleSheet.create({
   marginTop: { marginTop: 15 },
@@ -25,6 +26,7 @@ const LoginForm = ({ navigation }) => {
       if (data.error) {
         setError(true);
       } else {
+        getToken();
         navigation.navigate('Home');
       }
     } catch (ex) {
