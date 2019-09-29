@@ -5,9 +5,9 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeStack from './HomeStack';
 import LoadingScreen from '../screens/LoadingScreen';
-import LoginScreen from '../screens/LoginScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SignupScreen from '../screens/SignupScreen';
+import LoginStack from './LoginStack';
 
 const AppTabBar = createBottomTabNavigator(
   {
@@ -32,7 +32,7 @@ const AppTabBar = createBottomTabNavigator(
 );
 
 const AuthSwitch = createSwitchNavigator({
-  Login: LoginScreen,
+  Login: LoginStack,
   Signup: SignupScreen,
 });
 

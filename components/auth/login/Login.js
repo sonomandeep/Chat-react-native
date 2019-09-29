@@ -33,10 +33,14 @@ const Login = ({ navigation }) => {
       <LoginForm />
 
       <View style={MainStyles.alignCenter}>
-        <TouchableHighlight style={MainStyles.alignCenter}>
+        <TouchableHighlight
+          style={MainStyles.alignCenter}
+          onPress={() => navigation.navigate('ForgotPassword')}
+        >
           <>
-            <Text style={styles.textLowContract}>Hai dimenticato le credenziali?</Text>
-            <Text style={styles.text}>Richiedi assistenza.</Text>
+            {/* <Text style={styles.textLowContract}>Hai dimenticato le credenziali?</Text>
+            <Text style={styles.text}>Richiedi assistenza.</Text> */}
+            <Text style={styles.text}>Hai dimenticato la password?</Text>
           </>
         </TouchableHighlight>
         <TouchableHighlight
