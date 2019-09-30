@@ -7,7 +7,9 @@ import {
   resetPassword,
 } from '../../utils/api';
 
-// export const setUserAction = async dispatch => {};
+export const setUserAction = data => async dispatch => {
+  dispatch({ type: 'SET_USER', payload: data });
+};
 
 export const loginAction = (username, password) => async dispatch => {
   const res = await login(username.trim(), password.trim());

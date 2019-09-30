@@ -5,9 +5,9 @@ import {
   FCM_SEND_NOTIFICATION,
   SET_FCM_TOKEN,
   SIGNUP_LINK,
+  RESET_PASSWORD,
   getProfileUpdateLink,
   getProfileImageUpdateLink,
-  RESET_PASSWORD,
 } from '../constants/apiLinks';
 
 export const login = async (username, password) => {
@@ -100,5 +100,13 @@ export const resetPassword = async email => {
   } catch (error) {
     console.log('Errore resetPassword:', error);
     return error;
+  }
+};
+
+export const verifyResetPassword = async data => {
+  try {
+    const res = await axios.post();
+  } catch (error) {
+    console.log('Error verifyResetPassword:', error);
   }
 };

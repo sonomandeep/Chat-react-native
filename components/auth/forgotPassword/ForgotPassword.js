@@ -30,13 +30,15 @@ const ForgotPassword = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleSendButton = async () => {
+    let res;
     try {
-      const res = await dispatch(resetPasswordAction(email.trim().toLowerCase()));
+      res = await dispatch(resetPasswordAction(email.trim().toLowerCase()));
       Alert.alert(
         'Email inviata',
         "E' stata inviata un email all'indizzo col quale ti sei iscritto, segui le istruzioni per recuperare la password."
       );
-      navigation.navigate('ForgotPasswordCode');
+
+      navigation.navigate('ForgotPasswordCode', { ...res.data });
     } catch (err) {
       console.log(err);
     }

@@ -1,12 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import InsertCode from '../components/auth/forgotPassword/InsertCode';
 
 const InsertCodeScreen = () => {
-  return (
-    <View>
-      <Text>Inserisci il codice</Text>
-    </View>
-  );
+  return <InsertCode />;
 };
 
 export default InsertCodeScreen;
