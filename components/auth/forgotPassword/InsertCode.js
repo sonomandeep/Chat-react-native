@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { MainStyles, Fonts, Colors } from '../../../style/styles';
 import InputField from '../../input/InputField';
 import PrimaryButton from '../../input/Button';
-import { setUserAction } from '../../../store/actions/userActions';
+import { verifyResetPasswordAction } from '../../../store/actions/userActions';
 
 const styles = StyleSheet.create({
   wrapper: { width: '100%' },
@@ -31,11 +31,16 @@ const InsertCode = ({ navigation }) => {
 
   const user = { ...navigation.state.params };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (new Date(user.resetPasswordExpires).getTime() < Date.now()) {
       if (user.resetPasswordToken === code) {
-        dispatch(setUserAction({ ...user }));
-        navigation.navigate('Home');
+        const res = await dispatch(
+          verifyResetPasswordAction({ email: user.email, token: user.resetPasswordToken })
+        );
+        if (res) {
+          navigation.navigate('Home');
+          return;
+        }
       }
     }
     setError(true);
