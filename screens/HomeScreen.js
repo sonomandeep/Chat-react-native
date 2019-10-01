@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import { logoutAction, setFcmTokenAction } from '../store/actions/userActions';
 import {
@@ -37,7 +38,11 @@ class HomeScreen extends Component {
     });
 
     const { getUsers, user } = this.props;
-    getUsers(user._id);
+
+    getUsers(user._id).catch(({ error }) => {
+      console.log('Errore durante la lettura degli utenti:', error);
+      Alert.alert(error.message, 'Errore duranti la lettura degli utenti.');
+    });
 
     this.state = {
       users: props.users,

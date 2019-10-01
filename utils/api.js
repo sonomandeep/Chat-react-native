@@ -21,9 +21,13 @@ export const signup = async (name, email, username, password) => {
   return res.data;
 };
 
-export const getUsers = async _id => {
-  const res = await axios.post(USERS_LIST_LINK, { userID: _id });
-  return res.data;
+export const getUsers = async (token, _id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(USERS_LIST_LINK, { userID: _id }, { headers: { Authorization: token } })
+      .then(res => resolve(res.data))
+      .catch(error => reject(error.response.data));
+  });
 };
 
 export const setFcmTokenApi = async (_id, fcmToken) => {

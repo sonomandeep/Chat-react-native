@@ -27,7 +27,7 @@ const AppTabBar = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Home',
   }
 );
 
