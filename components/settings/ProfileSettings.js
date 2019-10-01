@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { View, Text, Image, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Image, TextInput, StyleSheet, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -78,7 +78,7 @@ const ProfileSettings = ({ user, data }) => {
     return text !== null && text !== '';
   };
 
-  const handleUpdateButton = async () => {
+  const handleUpdateButton = () => {
     changeUpdating();
 
     if (isUpdating) {
@@ -87,7 +87,11 @@ const ProfileSettings = ({ user, data }) => {
         .forEach(element => {
           update = { ...update, [element]: values[element] };
         });
-      await dispatch(updateProfileAction(update));
+      dispatch(updateProfileAction(update))
+        .then(Alert.alert('Success', 'Le informazioni sono state modificate con successo.'))
+        .catch(({ error }) => {
+          Alert.alert(error.message, 'Errore durante la modifica del profilo.');
+        });
       cancelHandler();
     }
   };

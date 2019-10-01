@@ -21,7 +21,7 @@ export const signup = async (name, email, username, password) => {
   return res.data;
 };
 
-export const getUsers = async (token, _id) => {
+export const getUsers = (token, _id) => {
   return new Promise((resolve, reject) => {
     axios
       .post(USERS_LIST_LINK, { userID: _id }, { headers: { Authorization: token } })
@@ -32,6 +32,7 @@ export const getUsers = async (token, _id) => {
 
 export const setFcmTokenApi = async (_id, fcmToken) => {
   await axios.post(SET_FCM_TOKEN, { _id, fcmToken });
+  // return new Promise((resolve, reject) => axios.post(SET_FCM_TOKEN, { _id, fcmToken }));
 };
 
 export const sendNotification = async data => {
@@ -69,14 +70,25 @@ export const sendNotification = async data => {
     .catch(error => console.log("Errore durante l'invio della notifica:", error));
 };
 
-export const updateProfile = async (username, data) => {
-  try {
-    const res = await axios.patch(getProfileUpdateLink(username), data);
-    return res;
-  } catch (error) {
-    console.log('Errore durante update profilo:', error);
-    return error;
-  }
+export const updateProfile = async (username, data, token) => {
+  // try {
+  //   const res = await axios.patch(getProfileUpdateLink(username), data);
+  //   return res;
+  // } catch (error) {
+  //   console.log('Errore durante update profilo:', error);
+  //   return error;
+  // }
+
+  return new Promise((resolve, reject) =>
+    axios
+      .patch(getProfileUpdateLink(username), data, { headers: { Authorization: token } })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error.response.data);
+      })
+  );
 };
 
 export const updateProfileImage = async (username, image) => {

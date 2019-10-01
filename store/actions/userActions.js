@@ -38,14 +38,19 @@ export const setFcmTokenAction = (_id, fcmToken) => dispatch => {
 
 export const updateProfileAction = data => async (dispatch, getState) => {
   const state = getState();
-  const { username } = state.user.user;
+  const { username, token } = state.user.user;
 
-  try {
-    const res = await updateProfile(username, data);
-    dispatch({ type: 'SET_USER', payload: { ...res.data } });
-  } catch (error) {
-    console.log('Errore durante updateProfileAction:', error);
-  }
+  return new Promise((resolve, reject) =>
+    updateProfile(username, data, token)
+      .then(res => {
+        dispatch({ type: 'SET_USER', payload: { ...res.data.payload } });
+        resolve();
+      })
+      .catch(error => {
+        console.log('Errore durante updateProfileAction:', error);
+        reject(error);
+      })
+  );
 };
 
 export const updateProfileImageAction = data => (dispatch, getState) => {
