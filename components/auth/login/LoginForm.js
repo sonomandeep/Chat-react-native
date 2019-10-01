@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import InputField from '../../input/InputField';
@@ -18,20 +18,16 @@ const LoginForm = ({ navigation }) => {
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
 
-  const submit = async () => {
-    let data;
-    try {
-      data = await dispatch(loginAction(username, password));
-
-      if (data.error) {
-        setError(true);
-      } else {
+  const submit = () => {
+    dispatch(loginAction(username, password))
+      .then(() => {
         getToken();
         navigation.navigate('Home');
-      }
-    } catch (ex) {
-      console.log('Errore:', ex);
-    }
+      })
+      .catch(err => {
+        setError(true);
+        Alert.alert(err.title, err.message);
+      });
   };
 
   return (

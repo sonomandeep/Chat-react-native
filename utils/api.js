@@ -11,9 +11,18 @@ import {
   getProfileImageUpdateLink,
 } from '../constants/apiLinks';
 
-export const login = async (username, password) => {
-  const res = await axios.post(LOGIN_LINK, { username, password });
-  return res;
+export const login = async (username, password, token) => {
+  // const res = await axios.post(LOGIN_LINK, { username, password });
+  // return res;
+
+  return new Promise((resolve, reject) =>
+    axios
+      .post(LOGIN_LINK, { username, password })
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(error => reject(error.response.data))
+  );
 };
 
 export const signup = async (name, email, username, password) => {
@@ -71,14 +80,6 @@ export const sendNotification = async data => {
 };
 
 export const updateProfile = async (username, data, token) => {
-  // try {
-  //   const res = await axios.patch(getProfileUpdateLink(username), data);
-  //   return res;
-  // } catch (error) {
-  //   console.log('Errore durante update profilo:', error);
-  //   return error;
-  // }
-
   return new Promise((resolve, reject) =>
     axios
       .patch(getProfileUpdateLink(username), data, { headers: { Authorization: token } })

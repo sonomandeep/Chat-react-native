@@ -13,9 +13,16 @@ export const setUserAction = data => async dispatch => {
 };
 
 export const loginAction = (username, password) => async dispatch => {
-  const res = await login(username.trim(), password.trim());
-  dispatch({ type: 'LOGIN', payload: res.data.user });
-  return res.data;
+  return new Promise((resolve, reject) =>
+    login(username.trim(), password.trim())
+      .then(({ payload }) => {
+        dispatch({ type: 'LOGIN', payload: { ...payload.user } });
+        resolve(payload);
+      })
+      .catch(({ error }) => {
+        reject(error);
+      })
+  );
 };
 
 export const signupAction = (name, email, username, password) => async dispatch => {
