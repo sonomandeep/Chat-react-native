@@ -11,10 +11,7 @@ import {
   getProfileImageUpdateLink,
 } from '../constants/apiLinks';
 
-export const login = async (username, password, token) => {
-  // const res = await axios.post(LOGIN_LINK, { username, password });
-  // return res;
-
+export const login = async (username, password) => {
   return new Promise((resolve, reject) =>
     axios
       .post(LOGIN_LINK, { username, password })
@@ -26,8 +23,15 @@ export const login = async (username, password, token) => {
 };
 
 export const signup = async (name, email, username, password) => {
-  const res = await axios.post(SIGNUP_LINK, { email, name, username, password });
-  return res.data;
+  // const res = await axios.post(SIGNUP_LINK, { email, name, username, password });
+  // return res.data;
+
+  return new Promise((resolve, reject) =>
+    axios
+      .post(SIGNUP_LINK, { email, name, username, password })
+      .then(res => resolve(res.data))
+      .catch(error => reject(error.response.data))
+  );
 };
 
 export const getUsers = (token, _id) => {

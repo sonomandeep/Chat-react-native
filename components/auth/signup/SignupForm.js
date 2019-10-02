@@ -7,6 +7,7 @@ import InputField from '../../input/InputField';
 import PrimaryButton from '../../input/Button';
 import { signupAction } from '../../../store/actions/userActions';
 import { getToken } from '../../../utils/notifications';
+import { showAlert } from '../../../utils/errors';
 
 const styles = StyleSheet.create({
   marginTop: { marginTop: 15 },
@@ -21,18 +22,27 @@ const SignupForm = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const submit = async () => {
-    let data;
-    try {
-      data = await dispatch(signupAction(name, email, username, password));
-      if (data.error) {
-        setError(true);
-      } else {
+    // let data;
+    // try {
+    //   data = await dispatch(signupAction(name, email, username, password));
+    //   if (data.error) {
+    //     setError(true);
+    //   } else {
+    //     getToken();
+    //     navigation.navigate('Home');
+    //   }
+    // } catch (ex) {
+    //   console.log('Errore:', ex);
+    // }
+    dispatch(signupAction(name, email, username, password))
+      .then(() => {
         getToken();
         navigation.navigate('Home');
-      }
-    } catch (ex) {
-      console.log('Errore:', ex);
-    }
+      })
+      .catch(err => {
+        showAlert(err.title, err.message);
+        setError(true);
+      });
   };
 
   return (

@@ -26,14 +26,14 @@ export const loginAction = (username, password) => async dispatch => {
 };
 
 export const signupAction = (name, email, username, password) => async dispatch => {
-  try {
-    const data = await signup(name.trim(), email.trim(), username.trim(), password.trim());
-    dispatch({ type: 'SIGNUP', payload: data.user });
-    return data;
-  } catch (error) {
-    console.log('Errore durante signupAction:', error);
-    return null;
-  }
+  return new Promise((resolve, reject) =>
+    signup(name.trim(), email.trim(), username.trim(), password.trim())
+      .then(({ payload }) => {
+        dispatch({ type: 'SIGNUP', payload: { ...payload.user } });
+        resolve(payload);
+      })
+      .catch(error => reject(error))
+  );
 };
 
 export const logoutAction = () => dispatch => dispatch({ type: 'LOGOUT' });
