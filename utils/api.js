@@ -23,9 +23,6 @@ export const login = async (username, password) => {
 };
 
 export const signup = async (name, email, username, password) => {
-  // const res = await axios.post(SIGNUP_LINK, { email, name, username, password });
-  // return res.data;
-
   return new Promise((resolve, reject) =>
     axios
       .post(SIGNUP_LINK, { email, name, username, password })
@@ -96,22 +93,17 @@ export const updateProfile = async (username, data, token) => {
   );
 };
 
-export const updateProfileImage = async (username, image) => {
+export const updateProfileImage = async (username, image, token) => {
   const formData = new FormData();
   formData.append('image', { uri: image.uri, type: 'image/jpeg', name: 'image.jpg' });
 
-  try {
-    const res = await axios.patch(getProfileImageUpdateLink(username), formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return res;
-  } catch (error) {
-    console.log('Errore durante il caricamento della foto:', error);
-    return error;
-  }
+  return axios.patch(getProfileImageUpdateLink(username), formData, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+      Authorization: token,
+    },
+  });
 };
 
 export const resetPassword = async email => {

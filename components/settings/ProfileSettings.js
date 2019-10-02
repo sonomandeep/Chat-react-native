@@ -9,6 +9,7 @@ import { Fonts, Colors, MainStyles } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 import Button from '../input/Button';
 import { updateProfileImageAction, updateProfileAction } from '../../store/actions/userActions';
+import { showAlert } from '../../utils/errors';
 
 const styles = StyleSheet.create({
   wrapper: { marginBottom: 20, width: '100%', paddingHorizontal: 20 },
@@ -98,7 +99,6 @@ const ProfileSettings = ({ user, data }) => {
 
   const options = {
     title: 'Select profile image',
-    // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
     storageOptions: {
       skipBackup: true,
       path: 'images',
@@ -113,7 +113,9 @@ const ProfileSettings = ({ user, data }) => {
         console.log('ImagePicker Error: ', response.error);
       } else {
         const source = { uri: response.uri };
-        dispatch(updateProfileImageAction(source));
+        dispatch(updateProfileImageAction(source)).catch(err =>
+          showAlert(err.response.data.error.title, err.response.data.error.message)
+        );
       }
     });
   };

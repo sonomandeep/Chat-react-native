@@ -62,11 +62,16 @@ export const updateProfileAction = data => async (dispatch, getState) => {
 
 export const updateProfileImageAction = data => (dispatch, getState) => {
   const state = getState();
-  const { username } = state.user.user;
+  const { username, token } = state.user.user;
 
-  updateProfileImage(username, data).then(res => {
-    dispatch({ type: 'SET_USER', payload: res.data });
-  });
+  return new Promise((resolve, reject) =>
+    updateProfileImage(username, data, token)
+      .then(err => {
+        dispatch({ type: 'SET_USER', payload: { ...err.data.payload } });
+        resolve(err.data.payload);
+      })
+      .catch(err => reject(err))
+  );
 };
 
 export const resetPasswordAction = email => async dispatch => {
