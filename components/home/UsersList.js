@@ -11,8 +11,8 @@ const UsersList = ({ users, query }) => {
   const compareUsers = (a, b) => {
     if (!a.messages.length > 0 || !b.messages.length > 0) return 0;
 
-    const aCreatedAt = a.messages[a.messages.length - 1].createdAt;
-    const bCreatedAt = b.messages[b.messages.length - 1].createdAt;
+    const aCreatedAt = a.messages[0].createdAt;
+    const bCreatedAt = b.messages[0].createdAt;
 
     let comparison = 0;
 

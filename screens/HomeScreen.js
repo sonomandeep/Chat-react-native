@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
-import { logoutAction, setFcmTokenAction } from '../store/actions/userActions';
+import { logoutAction } from '../store/actions/userActions';
 import {
   getUsersAction,
   receiveMessageAction,

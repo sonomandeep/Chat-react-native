@@ -58,6 +58,26 @@ const User = ({ data, navigation }) => {
 
   const lastReceivedMessage = getLastReceivedMessage(messages);
 
+  const dateToFromNowDaily = date => {
+    // get from-now for this date
+    const fromNow = moment(date).fromNow();
+
+    // ensure the date is displayed with today and yesterday
+    return moment(date).calendar(null, {
+      // when the date is closer, specify custom values
+      lastWeek: 'DD/MM/YYYY',
+      lastDay: '[Ieri]',
+      sameDay: 'HH:m',
+      nextDay: '[Domani]',
+      nextWeek: 'dddd',
+
+      // when the date is further away, use from-now functionality
+      sameElse() {
+        return `[${fromNow}]`;
+      },
+    });
+  };
+
   return (
     <TouchableOpacity
       style={styles.user}
@@ -87,11 +107,7 @@ const User = ({ data, navigation }) => {
             {lastReceivedMessage && !lastReceivedMessage.isVisualized ? (
               <View style={styles.newMessages} />
             ) : null}
-            <Text style={styles.hour}>
-              {moment(new Date(messages[0].createdAt))
-                .startOf()
-                .fromNow()}
-            </Text>
+            <Text style={styles.hour}>{dateToFromNowDaily(new Date(messages[0].createdAt))}</Text>
           </View>
         )}
       </View>
