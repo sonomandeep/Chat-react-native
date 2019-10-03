@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Rendering should match to snapshot 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  onPress={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#33E1ED",
+      "borderRadius": 8,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#fff",
+        "fontSize": 17,
+        "fontWeight": "normal",
+        "paddingVertical": 10,
+      }
+    }
+  >
+    Button
+  </Text>
+</TouchableOpacity>
+`;

@@ -59,9 +59,6 @@ const User = ({ data, navigation }) => {
   const lastReceivedMessage = getLastReceivedMessage(messages);
 
   const dateToFromNowDaily = date => {
-    // get from-now for this date
-    const fromNow = moment(date).fromNow();
-
     // ensure the date is displayed with today and yesterday
     return moment(date).calendar(null, {
       // when the date is closer, specify custom values
@@ -73,7 +70,7 @@ const User = ({ data, navigation }) => {
 
       // when the date is further away, use from-now functionality
       sameElse() {
-        return `[${fromNow}]`;
+        return `DD/MM/YY`;
       },
     });
   };
