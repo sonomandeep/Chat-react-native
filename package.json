@@ -6,15 +6,24 @@
     "web": "expo start --web",
     "fix": "./node_modules/.bin/eslint --fix",
     "postinstall": "rndebugger-open",
-    "jest": "jest"
+    "jest": "jest --verbose"
   },
   "jest": {
     "preset": "react-native",
-    "setupFilesAfterEnv": ["jest-enzyme"],
+    "setupFilesAfterEnv": [
+      "jest-enzyme"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|native-base|react-navigation|react-native-fabric)"
+    ],
     "testEnvironment": "enzyme",
     "testEnvironmentOptions": {
       "enzymeAdapter": "react16"
-    }
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/**.{js,jsx}"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.5",

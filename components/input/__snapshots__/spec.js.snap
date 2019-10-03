@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Rendering should match to snapshot 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  onPress={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#33E1ED",
+      "borderRadius": 8,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#fff",
+        "fontSize": 17,
+        "fontWeight": "normal",
+        "paddingVertical": 10,
+      }
+    }
+  >
+    Button
+  </Text>
+</TouchableOpacity>
+`;
+
+exports[`CustomTextInput Rendering should match to snapshot 1`] = `
+<View>
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    placeholder="CustomTextInput"
+    placeholderTextColor={null}
+    rejectResponderTermination={true}
+    style={Object {}}
+    underlineColorAndroid="transparent"
+    value="initialValue"
+  />
+</View>
+`;
+
+exports[`InputField Rendering should match to snapshot 1`] = `
+<TextInput
+  allowFontScaling={true}
+  onChangeText={[Function]}
+  placeholder="Input field"
+  placeholderTextColor="#C7C7CD"
+  rejectResponderTermination={true}
+  secureTextEntry={true}
+  style={
+    Object {
+      "backgroundColor": "#F3F3F3",
+      "borderColor": "#707070",
+      "borderRadius": 8,
+      "borderWidth": 0.5,
+      "fontSize": 17,
+      "paddingHorizontal": 16,
+      "paddingVertical": 8,
+    }
+  }
+  underlineColorAndroid="transparent"
+  value="initialValue"
+/>
+`;

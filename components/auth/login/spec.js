@@ -1,13 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Button from './Button';
+import Login from './Login';
 
-describe('Button', () => {
+describe('Login', () => {
   describe('Rendering', () => {
     it('should match to snapshot', () => {
-      const component = shallow(
-        <Button pressHandler={() => console.log('Premuto')} text="Button" />
-      );
+      const component = shallow(<Login />);
       expect(component).toMatchSnapshot();
     });
   });
