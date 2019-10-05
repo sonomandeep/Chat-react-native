@@ -62,9 +62,9 @@ const User = ({ data, navigation }) => {
     // ensure the date is displayed with today and yesterday
     return moment(date).calendar(null, {
       // when the date is closer, specify custom values
-      lastWeek: 'DD/MM/YYYY',
+      lastWeek: 'DD/MM/YY',
       lastDay: '[Ieri]',
-      sameDay: 'HH:m',
+      sameDay: 'HH:mm',
       nextDay: '[Domani]',
       nextWeek: 'dddd',
 

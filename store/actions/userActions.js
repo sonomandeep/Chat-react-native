@@ -32,7 +32,7 @@ export const signupAction = (name, email, username, password) => async dispatch 
         dispatch({ type: 'SIGNUP', payload: { ...payload.user } });
         resolve(payload);
       })
-      .catch(error => reject(error))
+      .catch(({ error }) => reject(error))
   );
 };
 
