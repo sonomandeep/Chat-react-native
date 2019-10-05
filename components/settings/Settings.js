@@ -7,7 +7,7 @@ import uuid from 'uuid/v4';
 import { MainStyles, Colors } from '../../style/styles';
 import SettingsSection from './SettingsSection';
 import ProfileSettings from './ProfileSettings';
-import { logoutAction } from '../../store/actions/userActions';
+import { logoutAction, setFcmTokenAction } from '../../store/actions/userActions';
 
 const styles = StyleSheet.create({
   main: { backgroundColor: Colors.lowConstrastGray },
@@ -49,7 +49,8 @@ class Settings extends Component {
   }
 
   handleLogout = () => {
-    const { logout, navigation } = this.props;
+    const { user, logout, navigation, setFcmToken } = this.props;
+    setFcmToken(user._id, '');
     logout();
     navigation.navigate('Auth');
   };
@@ -108,10 +109,12 @@ Settings.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
   user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   }).isRequired,
   logout: PropTypes.func.isRequired,
+  setFcmToken: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -120,5 +123,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { logout: logoutAction }
+  { logout: logoutAction, setFcmToken: setFcmTokenAction }
 )(withNavigation(Settings));

@@ -24,12 +24,21 @@ export default function chatReducer(state = initialState, { type, payload }) {
       };
 
     case 'RECEIVE_MESSAGE':
-      users = state.users.map(u => {
-        if (u.user._id === payload.senderUserID) {
-          return { ...u, messages: [payload, ...u.messages], lastMessage: { ...payload } };
-        }
-        return u;
-      });
+      console.log('Payload:', payload);
+      users = state.users.filter(u => u.user._id !== payload.senderUserID);
+      user = state.users.find(u => u.user._id === payload.senderUserID);
+
+      users = [
+        { ...user, messages: [payload, ...user.messages], lastMessage: { ...payload } },
+        ...users,
+      ];
+
+      // users = state.users.map(u => {
+      //   if (u.user._id === payload.senderUserID) {
+      //     return { ...u, messages: [payload, ...u.messages], lastMessage: { ...payload } };
+      //   }
+      //   return u;
+      // });
 
       return {
         ...state,

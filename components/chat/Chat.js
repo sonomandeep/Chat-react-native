@@ -73,7 +73,7 @@ const Chat = ({ navigation }) => {
 
     sendNotification({
       fcmToken: navigation.state.params.user.fcmToken,
-      title: navigation.state.params.user.username,
+      title: user.username,
       body: data.message,
     });
 

@@ -30,9 +30,9 @@ const UsersList = ({ users, query }) => {
   }, [users]);
 
   return (
-    <View style={[MainStyles.alignCenter, MainStyles.container]}>
+    <View style={[MainStyles.alignCenter, { ...MainStyles.container, paddingHorizontal: 0 }]}>
       <FlatList
-        style={MainStyles.parentFullWidth}
+        style={[MainStyles.parentFullWidth, { paddingHorizontal: 16 }]}
         data={usersList.filter(u => {
           if (query) {
             return u.user.username.includes(query);
