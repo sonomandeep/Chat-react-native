@@ -68,7 +68,6 @@ const User = ({ data, navigation }) => {
   };
 
   const pressHandler = () => {
-    console.log(user);
     navigation.navigate('Chat', { messages, user });
     dispatch(setToReadAction(user._id, false));
   };

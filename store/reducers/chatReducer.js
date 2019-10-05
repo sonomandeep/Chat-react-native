@@ -43,13 +43,8 @@ export default function chatReducer(state = initialState, { type, payload }) {
       };
 
     case 'SET_TOREAD':
-      // user = state.users.find(u => u.user._id === payload._id);
-      // user = { ...user, toRead: payload.value };
-
       users = state.users.map(u => {
         if (u.user._id === payload._id) {
-          console.log(u);
-          console.log({ ...u, toRead: payload.value });
           return { ...u, toRead: payload.value };
         }
         return u;
