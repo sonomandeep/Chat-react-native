@@ -11,12 +11,12 @@ export default function chatReducer(state = initialState, { type, payload }) {
       return { ...state, users: payload };
 
     case 'SEND_MESSAGE':
-      users = state.users.map(u => {
-        if (u.user._id === payload.receiverUserID) {
-          return { ...u, messages: [payload, ...u.messages], lastMessage: { ...payload } };
-        }
-        return u;
-      });
+      users = state.users.filter(u => u.user._id !== payload.receiverUserID);
+      user = state.users.find(u => u.user._id === payload.receiverUserID);
+      users = [
+        { ...user, messages: [payload, ...user.messages], lastMessage: { ...payload } },
+        ...users,
+      ];
 
       return {
         ...state,
