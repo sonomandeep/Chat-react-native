@@ -60,6 +60,7 @@ export default class App extends Component {
     this.removeNotificationDisplayedListener = firebase
       .notifications()
       .onNotificationDisplayed(notification => {
+        notification.android.setChannelId('message-channel');
         console.log('OnNotificationDisplayed:', notification);
         // Process your notification as required
         // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.

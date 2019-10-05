@@ -24,26 +24,38 @@ export default function chatReducer(state = initialState, { type, payload }) {
       };
 
     case 'RECEIVE_MESSAGE':
-      console.log('Payload:', payload);
       users = state.users.filter(u => u.user._id !== payload.senderUserID);
       user = state.users.find(u => u.user._id === payload.senderUserID);
 
       users = [
-        { ...user, messages: [payload, ...user.messages], lastMessage: { ...payload } },
+        {
+          ...user,
+          messages: [payload, ...user.messages],
+          lastMessage: { ...payload },
+          toRead: true,
+        },
         ...users,
       ];
-
-      // users = state.users.map(u => {
-      //   if (u.user._id === payload.senderUserID) {
-      //     return { ...u, messages: [payload, ...u.messages], lastMessage: { ...payload } };
-      //   }
-      //   return u;
-      // });
 
       return {
         ...state,
         users,
       };
+
+    case 'SET_TOREAD':
+      // user = state.users.find(u => u.user._id === payload._id);
+      // user = { ...user, toRead: payload.value };
+
+      users = state.users.map(u => {
+        if (u.user._id === payload._id) {
+          console.log(u);
+          console.log({ ...u, toRead: payload.value });
+          return { ...u, toRead: payload.value };
+        }
+        return u;
+      });
+
+      return { ...state, users };
 
     case 'MESSAGE_VISUALIZED':
       user = state.users.find(u => u.user._id === payload.sender);

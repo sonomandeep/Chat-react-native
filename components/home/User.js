@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment/locale/it';
 import { Colors, Fonts } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
+import { setToReadAction } from '../../store/actions/chatActions';
 
 const styles = StyleSheet.create({
   user: {
@@ -44,19 +46,9 @@ const styles = StyleSheet.create({
 });
 
 const User = ({ data, navigation }) => {
-  const { user, messages } = data;
+  const { user, messages, toRead } = data;
   moment.locale('it');
-
-  const getLastReceivedMessage = array => {
-    for (let i = 0; i < array.length; i += 1) {
-      if (array[i].senderUserID === user._id) {
-        return array[i];
-      }
-    }
-    return null;
-  };
-
-  const lastReceivedMessage = getLastReceivedMessage(messages);
+  const dispatch = useDispatch();
 
   const dateToFromNowDaily = date => {
     // ensure the date is displayed with today and yesterday
@@ -75,11 +67,14 @@ const User = ({ data, navigation }) => {
     });
   };
 
+  const pressHandler = () => {
+    console.log(user);
+    navigation.navigate('Chat', { messages, user });
+    dispatch(setToReadAction(user._id, false));
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.user}
-      onPress={() => navigation.navigate('Chat', { messages, user })}
-    >
+    <TouchableOpacity style={styles.user} onPress={pressHandler}>
       <View style={styles.inner}>
         <View style={styles.left}>
           <Image
@@ -101,9 +96,10 @@ const User = ({ data, navigation }) => {
         </View>
         {messages.length > 0 && (
           <View style={styles.right}>
-            {lastReceivedMessage && !lastReceivedMessage.isVisualized ? (
+            {/* {lastReceivedMessage && !lastReceivedMessage.isVisualized ? (
               <View style={styles.newMessages} />
-            ) : null}
+            ) : null} */}
+            {toRead && <View style={styles.newMessages} />}
             <Text style={styles.hour}>{dateToFromNowDaily(new Date(messages[0].createdAt))}</Text>
           </View>
         )}
@@ -120,6 +116,7 @@ User.propTypes = {
       profileImageURL: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
     }).isRequired,
+    toRead: PropTypes.bool,
   }).isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,

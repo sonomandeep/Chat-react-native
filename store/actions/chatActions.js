@@ -26,3 +26,7 @@ export const receiveMessageAction = message => dispatch => {
 export const setMessageVisualizedAction = _id => dispatch => {
   dispatch({ type: 'MESSAGE_VISUALIZED', payload: _id });
 };
+
+export const setToReadAction = (_id, value) => dispatch => {
+  dispatch({ type: 'SET_TOREAD', payload: { _id, value } });
+};
