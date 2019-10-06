@@ -1,4 +1,5 @@
 import { getUsers } from '../../utils/api';
+import { compareUsers } from '../../utils/sort';
 
 export const getUsersAction = _id => async (dispatch, getState) => {
   const state = getState();
@@ -8,6 +9,7 @@ export const getUsersAction = _id => async (dispatch, getState) => {
     getUsers(activeUser.token, _id)
       .then(({ users }) => {
         const filteredUsers = users.filter(({ user }) => user._id !== activeUser._id);
+        filteredUsers.sort(compareUsers);
         dispatch({ type: 'GET_USERS', payload: filteredUsers });
         resolve();
       })

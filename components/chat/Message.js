@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
 });
 
 const Message = ({ message }) => {
+  const [isVisualized, setVisualized] = useState(message.isVisualized);
   const userID = useSelector(state => state.user.user._id);
 
   const date = new Date(message.createdAt);
@@ -63,7 +64,7 @@ const Message = ({ message }) => {
 
         {isSent && (
           <View style={styles.messageReadingConfirmations}>
-            <View style={[styles.circle, message.isVisualized && styles.circleVisualized]} />
+            <View style={[styles.circle, isVisualized && styles.circleVisualized]} />
           </View>
         )}
       </View>
