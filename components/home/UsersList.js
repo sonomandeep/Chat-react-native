@@ -8,25 +8,8 @@ import User from './User';
 const UsersList = ({ users, query }) => {
   const [usersList, setUsersList] = useState([]);
 
-  const compareUsers = (a, b) => {
-    if (!a.messages.length > 0 || !b.messages.length > 0) return 0;
-
-    const aCreatedAt = a.messages[0].createdAt;
-    const bCreatedAt = b.messages[0].createdAt;
-
-    let comparison = 0;
-
-    if (aCreatedAt < bCreatedAt) {
-      comparison = 1;
-    } else if (aCreatedAt > bCreatedAt) {
-      comparison = -1;
-    }
-
-    return comparison;
-  };
-
   useEffect(() => {
-    setUsersList([...users.sort(compareUsers)]);
+    setUsersList([...users]);
   }, [users]);
 
   return (

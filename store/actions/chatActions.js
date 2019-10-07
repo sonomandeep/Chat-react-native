@@ -13,7 +13,9 @@ export const getUsersAction = _id => async (dispatch, getState) => {
         dispatch({ type: 'GET_USERS', payload: filteredUsers });
         resolve();
       })
-      .catch(error => reject(error));
+      .catch(error => {
+        reject(error);
+      });
   });
 };
 
