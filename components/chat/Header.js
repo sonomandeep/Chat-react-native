@@ -1,32 +1,45 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import { Fonts } from '../../style/styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Fonts, Colors } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
 const styles = StyleSheet.create({
-  wrapper: { flex: 1, alignItems: 'center', flexDirection: 'row' },
+  wrapper: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: Colors.primary,
+  },
+  content: {
+    justifyContent: 'center',
+  },
   image: {
-    width: 40,
-    height: 40,
+    width: 36,
+    height: 36,
     borderColor: '#fff',
     borderRadius: 20,
-    marginRight: 6,
+    marginRight: 10,
   },
-  title: { ...Fonts.headerTwo, color: '#fff' },
+  title: { ...Fonts.headLine, color: '#fff' },
+  status: { ...Fonts.lowContrast, color: '#fff' },
 });
 
 const Header = ({ user }) => {
   return (
-    <View style={styles.wrapper}>
+    <TouchableOpacity onPress={() => console.log('Premuto')} style={styles.wrapper}>
       <Image
         style={styles.image}
         source={{
           uri: user.profileImageURL ? getImageLink(user.profileImageURL) : PLACEHOLDER_IMAGE_LINK,
         }}
       />
-      <Text style={styles.title}>{user.username}</Text>
-    </View>
+      <View style={styles.content}>
+        <Text style={styles.title}>{user.username}</Text>
+        <Text style={styles.status}>online</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

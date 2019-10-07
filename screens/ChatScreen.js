@@ -10,6 +10,7 @@ class ChatScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerStyle: { backgroundColor: Colors.primary },
     headerTitle: <Header user={navigation.state.params.user} />,
+    // header: <Header user={navigation.state.params.user} />,
   });
 
   constructor(props, context) {

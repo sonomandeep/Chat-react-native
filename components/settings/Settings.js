@@ -10,11 +10,9 @@ import ProfileSettings from './ProfileSettings';
 import { logoutAction, setFcmTokenAction } from '../../store/actions/userActions';
 
 const styles = StyleSheet.create({
-  main: { backgroundColor: Colors.lowConstrastGray },
-  scrollView: { width: '100%' },
-  section: {
-    marginTop: 20,
-  },
+  main: { backgroundColor: Colors.lowConstrastGray, paddingHorizontal: 0 },
+  scrollView: { width: '100%', marginTop: 20 },
+  section: {},
 });
 
 class Settings extends Component {

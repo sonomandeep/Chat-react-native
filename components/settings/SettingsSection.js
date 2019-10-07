@@ -9,7 +9,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flexDirection: 'column',
     backgroundColor: '#FFF',
-    elevation: 2,
+    marginHorizontal: 16,
+    marginBottom: 20,
+    elevation: 1,
   },
   header: {
     flex: 1,
