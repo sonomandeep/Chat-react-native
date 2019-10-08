@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { withNavigation } from 'react-navigation';
 import { Fonts, Colors } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
@@ -26,7 +26,19 @@ const styles = StyleSheet.create({
   status: { ...Fonts.lowContrast, color: '#fff' },
 });
 
-const Header = ({ user }) => {
+const Header = ({ user, navigation }) => {
+  const [isOnline, setOnline] = useState(user.isOnline);
+
+  useEffect(() => {
+    console.log('Cambiato');
+    setOnline(user.isOnline);
+  }, [user]);
+
+  useEffect(() => {
+    console.log('Parametri aggiornati');
+    console.log(navigation.getParam('user'));
+  }, [navigation]);
+
   return (
     <TouchableOpacity onPress={() => console.log('Premuto')} style={styles.wrapper}>
       <Image
@@ -37,7 +49,7 @@ const Header = ({ user }) => {
       />
       <View style={styles.content}>
         <Text style={styles.title}>{user.username}</Text>
-        <Text style={styles.status}>online</Text>
+        <Text style={styles.status}>{isOnline ? 'online' : 'Ultimo accesso'}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -47,7 +59,12 @@ Header.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     profileImageURL: PropTypes.string.isRequired,
-  }).isRequired,
+    isOnline: PropTypes.bool,
+  }),
 };
 
-export default Header;
+Header.defaultProps = {
+  user: { isOnline: false },
+};
+
+export default withNavigation(Header);

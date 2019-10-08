@@ -7,6 +7,7 @@ import {
   getUsersAction,
   receiveMessageAction,
   setMessageVisualizedAction,
+  setUserOnlineAction,
 } from '../store/actions/chatActions';
 import UsersList from '../components/home/UsersList';
 import { SocketContext } from '../context/SocketContext';
@@ -36,6 +37,8 @@ class HomeScreen extends Component {
     socket.on('visualize', data => {
       props.setMessageVisualized(data);
     });
+
+    socket.on('user_online', data => props.setUserOnline(data.user._id));
 
     const { getUsers, user } = this.props;
 
@@ -85,6 +88,7 @@ HomeScreen.propTypes = {
   getUsers: PropTypes.func.isRequired,
   receiveMessage: PropTypes.func.isRequired,
   setMessageVisualized: PropTypes.func.isRequired,
+  setUserOnline: PropTypes.func.isRequired,
 };
 
 HomeScreen.defaultProps = {
@@ -105,5 +109,6 @@ export default connect(
     getUsers: getUsersAction,
     receiveMessage: receiveMessageAction,
     setMessageVisualized: setMessageVisualizedAction,
+    setUserOnline: setUserOnlineAction,
   }
 )(HomeScreen);

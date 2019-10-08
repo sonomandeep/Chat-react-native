@@ -34,3 +34,7 @@ export const setMessageVisualizedAction = _id => dispatch => {
 export const setToReadAction = (_id, value) => dispatch => {
   dispatch({ type: 'SET_TOREAD', payload: { _id, value } });
 };
+
+export const setUserOnlineAction = _id => dispatch => {
+  dispatch({ type: 'SET_USER_ONLINE', payload: _id });
+};
