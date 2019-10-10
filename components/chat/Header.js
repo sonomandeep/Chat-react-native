@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withNavigation } from 'react-navigation';
 import { Fonts, Colors } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
@@ -26,18 +26,13 @@ const styles = StyleSheet.create({
   status: { ...Fonts.lowContrast, color: '#fff' },
 });
 
-const Header = ({ user, navigation }) => {
-  const [isOnline, setOnline] = useState(user.isOnline);
+const Header = ({ user }) => {
+  const foundUser = useSelector(state => state.chat.users.find(u => u.user._id === user._id).user);
+  const [isOnline, setOnline] = useState(foundUser.isOnline);
 
   useEffect(() => {
-    console.log('Cambiato');
-    setOnline(user.isOnline);
-  }, [user]);
-
-  useEffect(() => {
-    console.log('Parametri aggiornati');
-    console.log(navigation.getParam('user'));
-  }, [navigation]);
+    setOnline(foundUser.isOnline);
+  }, [foundUser]);
 
   return (
     <TouchableOpacity onPress={() => console.log('Premuto')} style={styles.wrapper}>
@@ -57,14 +52,10 @@ const Header = ({ user, navigation }) => {
 
 Header.propTypes = {
   user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     profileImageURL: PropTypes.string.isRequired,
-    isOnline: PropTypes.bool,
   }),
 };
 
-Header.defaultProps = {
-  user: { isOnline: false },
-};
-
-export default withNavigation(Header);
+export default Header;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { withNavigation } from 'react-navigation';
@@ -49,11 +49,6 @@ const User = ({ data, navigation }) => {
   const { user, messages, toRead } = data;
   moment.locale('it');
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log('Aggiornato nel user');
-    navigation.setParams({ user });
-  }, [user]);
 
   const dateToFromNowDaily = date => {
     // ensure the date is displayed with today and yesterday
