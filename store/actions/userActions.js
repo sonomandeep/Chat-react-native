@@ -96,3 +96,7 @@ export const verifyResetPasswordAction = data => async dispatch => {
     return error;
   }
 };
+
+export const exitAppAction = () => dispatch => {
+  console.log('Uscito');
+};

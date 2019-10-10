@@ -38,3 +38,7 @@ export const setToReadAction = (_id, value) => dispatch => {
 export const setUserOnlineAction = _id => dispatch => {
   dispatch({ type: 'SET_USER_ONLINE', payload: _id });
 };
+
+export const setUserOfflineAction = _id => dispatch => {
+  dispatch({ type: 'SET_USER_OFFLINE', payload: _id });
+};

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Fonts, Colors } from '../../style/styles';
 import { PLACEHOLDER_IMAGE_LINK, getImageLink } from '../../constants/imageLinks';
 
@@ -29,10 +30,22 @@ const styles = StyleSheet.create({
 const Header = ({ user }) => {
   const foundUser = useSelector(state => state.chat.users.find(u => u.user._id === user._id).user);
   const [isOnline, setOnline] = useState(foundUser.isOnline);
+  const [lastAccess, setLastAccess] = useState(foundUser.lastAccess);
 
   useEffect(() => {
     setOnline(foundUser.isOnline);
+    setLastAccess(foundUser.lastAccess);
   }, [foundUser]);
+
+  const formatLastAccess = date => {
+    return date
+      ? moment(date).calendar(null, {
+          sameDay: '[Oggi alle] HH:mm',
+          lastDay: '[Ieri alle] HH:mm',
+          sameElse: 'll [alle] HH:mm',
+        })
+      : '';
+  };
 
   return (
     <TouchableOpacity onPress={() => console.log('Premuto')} style={styles.wrapper}>
@@ -44,7 +57,7 @@ const Header = ({ user }) => {
       />
       <View style={styles.content}>
         <Text style={styles.title}>{user.username}</Text>
-        <Text style={styles.status}>{isOnline ? 'online' : 'Ultimo accesso'}</Text>
+        <Text style={styles.status}>{isOnline ? 'online' : `${formatLastAccess(lastAccess)}`}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -55,7 +68,7 @@ Header.propTypes = {
     _id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     profileImageURL: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
 };
 
 export default Header;

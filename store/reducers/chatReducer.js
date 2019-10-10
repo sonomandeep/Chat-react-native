@@ -76,6 +76,16 @@ export default function chatReducer(state = initialState, { type, payload }) {
 
       return { ...state, users };
 
+    case 'SET_USER_OFFLINE':
+      users = state.users.map(u => {
+        if (u.user._id === payload) {
+          return { ...u, user: { ...u.user, isOnline: false, lastAccess: Date.now() } };
+        }
+        return u;
+      });
+
+      return { ...state, users };
+
     default:
       return state;
   }

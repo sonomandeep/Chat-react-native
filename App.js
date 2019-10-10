@@ -6,8 +6,9 @@ import { store, persistor } from './store/store';
 import MainNavigation from './navigation/MainNavigation';
 import SocketContextProvider from './context/SocketContext';
 import { createChannel, checkPermission } from './utils/notifications';
+import Middleware from './components/common/Middleware';
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
     this.state = {};
@@ -78,15 +79,23 @@ export default class App extends Component {
     });
   };
 
+  handleAppStateChange = nextAppState => {
+    console.log('NextAppState:', nextAppState);
+  };
+
   render() {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <SocketContextProvider>
-            <MainNavigation />
+            <Middleware>
+              <MainNavigation />
+            </Middleware>
           </SocketContextProvider>
         </PersistGate>
       </Provider>
     );
   }
 }
+
+export default App;
