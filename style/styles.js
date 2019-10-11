@@ -5,12 +5,14 @@ const { width } = Dimensions.get('window');
 export const Colors = {
   primary: '#33E1ED',
   black: '#111111',
-  gray: '#333333',
+  gray: '#444',
   lightGray: '#707070',
   error: '#F44336',
   errorBackground: 'rgba(244,67,54,0.2)',
   lowConstrastGray: '#F3F3F3',
   backgroud: '#F0F0F0',
+  screenBackgound: '#F6F6F6',
+  lightTextGray: '#B6B6B6',
 };
 
 export const Fonts = {
@@ -41,4 +43,13 @@ export const MainStyles = {
   parentFullWidth: { width: '100%' },
   padding: { mainPadding: 16 },
   row: { flexDirection: 'row' },
+  input: {
+    ...Fonts.body,
+    backgroundColor: '#fff',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    margin: 0,
+    borderRadius: 12,
+    elevation: 1,
+  },
 };
