@@ -52,7 +52,6 @@ export class Auth extends Component {
     const { email, password, passwordConfirm } = this.state;
 
     return (
-      // <TextInput value="Prova" onChangeText={() => console.log('Premuto')} placeholder="Prova" />
       <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
         <ImageBackground style={styles.header}>
           <Text style={styles.title}>Ermess</Text>
@@ -79,10 +78,6 @@ export class Auth extends Component {
                 placeholder="Conferma password"
               />
             </View>
-
-            {/* <TouchableOpacity style={styles.button}>
-          <Text>Iscriviti</Text>
-        </TouchableOpacity> */}
 
             <Button
               text="Iscriviti"

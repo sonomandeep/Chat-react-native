@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import theme from '../../style';
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -28,7 +29,12 @@ const CustomTextInput = ({
 }) => {
   const [inputError, setError] = useState(error);
   // const [toggleSecure, setSecure] = useState(false);
-  const inputStyle = [{ ...styles.textInput }, { ...style }, inputError && { ...styles.errors }];
+  const inputStyle = [
+    { ...theme.components.input },
+    { ...styles.textInput },
+    { ...style },
+    inputError && { ...styles.errors },
+  ];
 
   useEffect(() => {
     setError(error);

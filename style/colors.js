@@ -1,0 +1,17 @@
+export default {
+  primary: '#33E1ED',
+  primaryDark: '#29C1E1',
+  secondary: '#FF6935',
+  text: '#343434',
+  grayText: '#B2B2B2',
+  white: '#FFFFFF',
+  gray: '#444',
+  black: '#111111',
+  lightGray: '#707070',
+  error: '#F44336',
+  errorBackground: 'rgba(244,67,54,0.2)',
+  lowConstrastGray: '#F3F3F3',
+  backgroud: '#F0F0F0',
+  screenBackgound: '#F6F6F6',
+  lightTextGray: '#B6B6B6',
+};

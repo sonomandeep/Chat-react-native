@@ -4,8 +4,13 @@ const { width } = Dimensions.get('window');
 
 export const Colors = {
   primary: '#33E1ED',
-  black: '#111111',
+  primaryDark: '#29C1E1',
+  secondary: '#FF6935',
+  text: '#343434',
+  grayText: '#B2B2B2',
+  white: '#FFFFFF',
   gray: '#444',
+  black: '#111111',
   lightGray: '#707070',
   error: '#F44336',
   errorBackground: 'rgba(244,67,54,0.2)',
@@ -51,5 +56,65 @@ export const MainStyles = {
     margin: 0,
     borderRadius: 12,
     elevation: 1,
+  },
+};
+
+const utils = {
+  fontFamily: {
+    regular: 'Montserrat-Regular',
+    medium: 'Montserrat-Medium',
+    semiBold: 'Montserrat-SemiBold',
+    bold: 'Montserrat-Bold',
+  },
+  center: { alignItems: 'center' },
+  padding: { screenPadding: 20 },
+};
+
+export const theme = {
+  fonts: {
+    title: {
+      fontSize: 44,
+      color: Colors.primary,
+      fontFamily: utils.fontFamily.bold,
+    },
+    headLine: {
+      fontSize: 17,
+      color: Colors.text,
+      fontFamily: utils.fontFamily.medium,
+    },
+    body: { fontSize: 44 },
+    grayText: {
+      fontSize: 17,
+      color: Colors.grayText,
+      fontFamily: utils.fontFamily.regular,
+    },
+  },
+  screen: {
+    container: {},
+    content: { paddingHorizontal: utils.padding.screenPadding },
+  },
+  components: {
+    primaryButton: {
+      button: {
+        ...utils.center,
+        backgroundColor: Colors.primary,
+        paddingVertical: 15,
+        borderRadius: 500,
+      },
+      text: {
+        fontSize: 17,
+        color: Colors.white,
+        fontWeight: '600',
+      },
+    },
+    input: {
+      padding: 0,
+      margin: 0,
+      paddingBottom: 8,
+      placeholderColor: Colors.grayText,
+      borderBottomColor: Colors.grayText,
+      borderBottomWidth: 0.5,
+      fontFamily: utils.fontFamily.regular,
+    },
   },
 };

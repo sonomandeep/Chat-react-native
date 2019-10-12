@@ -31,10 +31,13 @@ const AppTabBar = createBottomTabNavigator(
   }
 );
 
-const AuthSwitch = createSwitchNavigator({
-  Login: LoginStack,
-  Signup: SignupScreen,
-});
+const AuthSwitch = createSwitchNavigator(
+  {
+    Login: LoginStack,
+    Signup: SignupScreen,
+  },
+  { initialRouteName: 'Signup' }
+);
 
 export default createAppContainer(
   createSwitchNavigator(

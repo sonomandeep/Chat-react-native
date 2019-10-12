@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Login from '../components/auth/login/Login';
-import { Auth } from '../components/auth';
 
 const LoginScreen = () => {
-  // return <Login />;
-  return <Auth />;
+  return <Login />;
 };
 
 LoginScreen.propTypes = {
