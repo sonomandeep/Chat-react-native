@@ -10,9 +10,11 @@ const styles = StyleSheet.create({
   textInput: {},
   toggle: {
     position: 'absolute',
-    alignItems: 'flex-end',
+    right: 0,
+    bottom: 10,
   },
-  errors: {},
+  error: { borderBottomColor: theme.colors.error },
+  errorText: { ...theme.fonts.inputError, marginTop: 4 },
 });
 
 const CustomTextInput = ({
@@ -28,12 +30,12 @@ const CustomTextInput = ({
   number,
 }) => {
   const [inputError, setError] = useState(error);
-  // const [toggleSecure, setSecure] = useState(false);
+  const [isHidden, setHidden] = useState(secure);
   const inputStyle = [
     { ...theme.components.input },
     { ...styles.textInput },
     { ...style },
-    inputError && { ...styles.errors },
+    inputError && { ...styles.error },
   ];
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const CustomTextInput = ({
     <View style={styles.wrapper}>
       <View style={styles.inner}>
         <TextInput
-          secureTextEntry={secure}
+          secureTextEntry={isHidden}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
@@ -59,11 +61,13 @@ const CustomTextInput = ({
           style={inputStyle}
           keyboardType={getKeyboardType()}
         />
-        {/* <TouchableOpacity style={styles.toggle}>
-          <Icon color="gray" size={16} name="eye" />
-        </TouchableOpacity> */}
+        {secure && (
+          <TouchableOpacity style={styles.toggle} onPress={() => setHidden(!isHidden)}>
+            <Icon color={theme.colors.grayText} size={20} name={isHidden ? 'eye' : 'eye-slash'} />
+          </TouchableOpacity>
+        )}
       </View>
-      {inputError ? <Text>Errore</Text> : null}
+      {inputError ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 };

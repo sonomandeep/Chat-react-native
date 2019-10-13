@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { StyleSheet, Alert, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,20 +16,49 @@ const styles = StyleSheet.create({
 });
 
 const LoginForm = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [username, setUsername] = useState('Mandeep1');
+  const [password, setPassword] = useState('Test1234');
+  const [error, setError] = useState({ username: null, password: null });
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const submit = () => {
+  const validate = async () => {
+    let noError = true;
+    if (!username) {
+      await setError({ ...error, username: 'Devi inserire un nome utente.' });
+      noError = false;
+    }
+    if (!password) {
+      console.log('Errore1:', error);
+      await setError({ ...error, password: 'Devi inserire una password.' });
+      noError = false;
+    }
+
+    if (password.length < 8) {
+      console.log('Errore2:', error);
+      await setError({ ...error, password: 'La password deve contenere almeno 8 caratteri.' });
+      noError = false;
+    }
+    return noError;
+  };
+
+  const submit = async () => {
+    setLoading(true);
+    await setError({ username: null, password: null });
+
+    if (!validate()) {
+      setLoading(false);
+      return;
+    }
     dispatch(loginAction(username, password))
       .then(() => {
+        setLoading(false);
         getToken();
         navigation.navigate('Home');
       })
       .catch(err => {
-        setError(true);
-        Alert.alert(err.title, err.message);
+        setLoading(false);
+        err.fields.forEach(field => setError({ ...error, ...field }));
       });
   };
 
@@ -41,7 +70,7 @@ const LoginForm = ({ navigation }) => {
         placeholder="Nome utente"
         value={username}
         onChangeText={setUsername}
-        error={error}
+        error={error.username}
       />
       <TextInput
         placeholderTextColor={theme.components.inputPlaceholder.color}
@@ -49,7 +78,7 @@ const LoginForm = ({ navigation }) => {
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        error={error}
+        error={error.password}
         secure
       />
 
@@ -60,7 +89,11 @@ const LoginForm = ({ navigation }) => {
           colors={[theme.colors.primary, theme.colors.primaryDark]}
           style={[theme.components.primaryButton.button, styles.button]}
         >
-          <Text style={theme.components.primaryButton.text}>Accedi</Text>
+          {isLoading ? (
+            <ActivityIndicator size="small" style={{ color: '#ffffff' }} />
+          ) : (
+            <Text style={theme.components.primaryButton.text}>Accedi</Text>
+          )}
         </LinearGradient>
       </TouchableOpacity>
     </View>

@@ -45,16 +45,22 @@ const Signup = ({ navigation }) => {
             placeholderTextColor={theme.components.inputPlaceholder.color}
             style={{ ...theme.components.input, ...styles.input }}
             placeholder="Indirizzo e-mail"
+            value=""
+            onChangeText={() => console.log('Cambiato')}
           />
           <TextInput
             placeholderTextColor={theme.components.inputPlaceholder.color}
             style={{ ...theme.components.input, ...styles.input }}
             placeholder="Password"
+            value=""
+            onChangeText={() => console.log('Cambiato')}
           />
           <TextInput
             placeholderTextColor={theme.components.inputPlaceholder.color}
             style={{ ...theme.components.input, ...styles.input }}
             placeholder="Conferma password"
+            value=""
+            onChangeText={() => console.log('Cambiato')}
           />
 
           <TouchableOpacity onPress={() => console.log('Premuto')}>

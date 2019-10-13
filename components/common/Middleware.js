@@ -30,6 +30,7 @@ class Middleware extends Component {
   handleAppStateChange = nextAppState => {
     const { socket } = this.state;
     const { user } = this.props;
+    if (!user) return;
     if (nextAppState === 'background') {
       socket.emit('user_exit', { _id: user._id });
     } else if (nextAppState) {

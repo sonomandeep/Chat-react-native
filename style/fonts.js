@@ -1,6 +1,7 @@
 import colors from './colors';
 
 const fontFamily = {
+  light: 'Montserrat-Light',
   regular: 'Montserrat-Regular',
   medium: 'Montserrat-Medium',
   semiBold: 'Montserrat-SemiBold',
@@ -29,6 +30,7 @@ const fonts = {
     fontFamily: fontFamily.regular,
     color: colors.secondary,
   },
+  inputError: { fontSize: 14, fontFamily: fontFamily.light, color: colors.error },
 };
 
 export default fonts;
