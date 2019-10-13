@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, View, TouchableOpacity, Text } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
-import InputField from '../../input/InputField';
-import PrimaryButton from '../../input/Button';
+import LinearGradient from 'react-native-linear-gradient';
+import { TextInput } from '../../input';
 import { loginAction } from '../../../store/actions/userActions';
 import { getToken } from '../../../utils/notifications';
+import theme from '../../../style';
 
 const styles = StyleSheet.create({
-  marginTop: { marginTop: 15 },
+  wrapper: { marginTop: theme.utils.margin.base * 2 },
+  input: { marginTop: theme.utils.margin.base * 4 },
+  button: { marginTop: theme.utils.margin.base * 4 },
 });
 
 const LoginForm = ({ navigation }) => {
@@ -31,24 +34,36 @@ const LoginForm = ({ navigation }) => {
   };
 
   return (
-    <>
-      <InputField
-        style={styles.marginTop}
-        placeHolder="Username"
+    <View style={styles.wrapper}>
+      <TextInput
+        placeholderTextColor={theme.components.inputPlaceholder.color}
+        style={{ ...theme.components.input, ...styles.input }}
+        placeholder="Nome utente"
         value={username}
-        onChangeHandler={setUsername}
+        onChangeText={setUsername}
         error={error}
       />
-      <InputField
-        style={styles.marginTop}
-        placeHolder="Password"
+      <TextInput
+        placeholderTextColor={theme.components.inputPlaceholder.color}
+        style={{ ...theme.components.input, ...styles.input }}
+        placeholder="Password"
         value={password}
-        onChangeHandler={setPassword}
-        secureTextEntry
+        onChangeText={setPassword}
         error={error}
+        secure
       />
-      <PrimaryButton style={styles.marginTop} text="Accedi" pressHandler={submit} />
-    </>
+
+      <TouchableOpacity onPress={submit}>
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          colors={[theme.colors.primary, theme.colors.primaryDark]}
+          style={[theme.components.primaryButton.button, styles.button]}
+        >
+          <Text style={theme.components.primaryButton.text}>Accedi</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    </View>
   );
 };
 

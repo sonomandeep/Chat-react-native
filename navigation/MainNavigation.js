@@ -3,6 +3,7 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { createStackNavigator } from 'react-navigation-stack';
 import HomeStack from './HomeStack';
 import LoadingScreen from '../screens/LoadingScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -31,12 +32,12 @@ const AppTabBar = createBottomTabNavigator(
   }
 );
 
-const AuthSwitch = createSwitchNavigator(
+const AuthSwitch = createStackNavigator(
   {
-    Login: LoginStack,
-    Signup: SignupScreen,
+    Login: { screen: LoginStack, navigationOptions: { header: null } },
+    Signup: { screen: SignupScreen, navigationOptions: { header: null } },
   },
-  { initialRouteName: 'Signup' }
+  { initialRouteName: 'Login' }
 );
 
 export default createAppContainer(

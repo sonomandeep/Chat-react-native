@@ -27,6 +27,9 @@ const components = {
   inputPlaceholder: {
     color: colors.lightGray,
   },
+  backIcon: {
+    width: 30,
+  },
 };
 
 export default components;
