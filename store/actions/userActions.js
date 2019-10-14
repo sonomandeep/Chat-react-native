@@ -6,6 +6,7 @@ import {
   updateProfileImage,
   resetPassword,
   verifyResetPassword,
+  checkEmail,
 } from '../../utils/api';
 
 export const setUserAction = data => async dispatch => {
@@ -23,6 +24,10 @@ export const loginAction = (username, password) => async dispatch => {
         reject(error);
       })
   );
+};
+
+export const checkEmailACtion = email => dispatch => {
+  return checkEmail(email);
 };
 
 export const signupAction = (name, email, username, password) => async dispatch => {

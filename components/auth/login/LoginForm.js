@@ -88,7 +88,7 @@ const LoginForm = ({ navigation }) => {
           style={[theme.components.primaryButton.button, styles.button]}
         >
           {isLoading ? (
-            <ActivityIndicator size="small" style={{ color: '#ffffff' }} />
+            <ActivityIndicator size="small" color="#ffffff" />
           ) : (
             <Text style={theme.components.primaryButton.text}>Accedi</Text>
           )}

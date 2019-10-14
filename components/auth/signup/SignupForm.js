@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
-import { signupAction } from '../../../store/actions/userActions';
+import emailValidator from 'email-validator';
+import { signupAction, checkEmailACtion } from '../../../store/actions/userActions';
 import { getToken } from '../../../utils/notifications';
-import { showAlert } from '../../../utils/errors';
 import theme from '../../../style';
 import { TextInput } from '../../input';
 
@@ -16,32 +16,44 @@ const styles = StyleSheet.create({
   button: { marginTop: theme.utils.margin.base * 4 },
 });
 
+const validate = (email, password, confirmPassword) => {
+  let errors = {};
+
+  if (!email) errors = { ...errors, email: 'Devi inserire un indirizzo e-mail.' };
+  if (!emailValidator.validate(email))
+    errors = { ...errors, email: "L'indirizzo e-mail inserito non è valido." };
+  if (!password) errors = { ...errors, password: 'Devi inserire una password.' };
+  if (password) {
+    if (password.length < 8)
+      errors = { ...errors, password: 'La password deve contere almeno 8 caratteri.' };
+  }
+  if (!confirmPassword) errors = { ...errors, confirmPassword: 'Devi confermare la password.' };
+  if (password !== confirmPassword)
+    errors = { ...errors, confirmPassword: 'Le password non corrispondono.' };
+  return errors;
+};
+
 const SignupForm = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ email: null, password: null, confirmPassword: null });
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const submit = () => {
-    // L'utente inserisce i dati
-    // Quando preme avanti i dati vengono validati:
-    //  1. Indirizzo e-mail valido
-    //  2. Password valida
-    //  3. Conferm password coincide con la password
-    // Se è tutto giusto si passa alla prossima schermata
-    // Altrimenti vengono visualizzati gli errori
+  const submit = async () => {
+    setLoading(true);
+    const errors = validate(email, password, confirmPassword);
 
-    // dispatch(signupAction(name, email, username, password))
-    //   .then(() => {
-    //     getToken();
-    //     navigation.navigate('Home');
-    //   })
-    //   .catch(err => {
-    //     showAlert(err.title, err.message);
-    //     setError(true);
-    //   });
-    navigation.navigate('CompleteSignup', { email, password });
+    try {
+      setLoading(false);
+      await dispatch(checkEmailACtion(email));
+      getToken();
+      navigation.navigate('CompleteSignup', { email, password, confirmPassword });
+    } catch (err) {
+      setLoading(false);
+      setError({ ...errors, email: err.response.data.error.message });
+    }
   };
 
   return (
@@ -52,6 +64,8 @@ const SignupForm = ({ navigation }) => {
         placeholder="Indirizzo e-mail"
         value={email}
         onChangeText={setEmail}
+        error={error.email}
+        email
       />
       <TextInput
         placeholderTextColor={theme.components.inputPlaceholder.color}
@@ -59,6 +73,8 @@ const SignupForm = ({ navigation }) => {
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
+        error={error.password}
+        secure
       />
       <TextInput
         placeholderTextColor={theme.components.inputPlaceholder.color}
@@ -66,6 +82,8 @@ const SignupForm = ({ navigation }) => {
         placeholder="Conferma password"
         value={confirmPassword}
         onChangeText={setConfirmPassword}
+        error={error.confirmPassword}
+        secure
       />
 
       <TouchableOpacity onPress={() => submit()}>
@@ -75,7 +93,11 @@ const SignupForm = ({ navigation }) => {
           colors={[theme.colors.primary, theme.colors.primaryDark]}
           style={[theme.components.primaryButton.button, styles.button]}
         >
-          <Text style={theme.components.primaryButton.text}>Avanti</Text>
+          {isLoading ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <Text style={theme.components.primaryButton.text}>Avanti</Text>
+          )}
         </LinearGradient>
       </TouchableOpacity>
     </View>

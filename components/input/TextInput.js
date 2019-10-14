@@ -43,7 +43,7 @@ const CustomTextInput = ({
   }, [error]);
 
   const getKeyboardType = () => {
-    if (email) return 'email-adress';
+    if (email) return 'email-address';
     if (phone) return 'phone-pad';
     if (number) return 'numeric';
     return 'default';

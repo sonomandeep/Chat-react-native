@@ -76,7 +76,7 @@ const Login = ({ navigation }) => {
       <KeyboardAvoidingView behavior="position">
         <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => console.log('Indietro')}
+            onPress={() => navigation.goBack()}
             style={{ ...theme.components.backIcon }}
           >
             <Icon
@@ -107,6 +107,7 @@ const Login = ({ navigation }) => {
 Login.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
 

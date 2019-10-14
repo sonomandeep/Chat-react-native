@@ -7,11 +7,16 @@ import {
   SIGNUP_LINK,
   RESET_PASSWORD,
   VERIFY_RESET_PASSWORD,
+  CHECK_EMAIL,
   getProfileUpdateLink,
   getProfileImageUpdateLink,
 } from '../constants/apiLinks';
 
-export const login = async (username, password) => {
+export const checkEmail = email => {
+  return axios.post(CHECK_EMAIL, { email });
+};
+
+export const login = (username, password) => {
   return new Promise((resolve, reject) =>
     axios
       .post(LOGIN_LINK, { username, password })
