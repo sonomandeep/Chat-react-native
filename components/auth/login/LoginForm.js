@@ -22,34 +22,32 @@ const LoginForm = ({ navigation }) => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const validate = async () => {
-    let noError = true;
+  const validate = () => {
+    let errors = {};
     if (!username) {
-      await setError({ ...error, username: 'Devi inserire un nome utente.' });
-      noError = false;
+      errors = { ...errors, username: 'Devi inserire un nome utente.' };
     }
+
     if (!password) {
-      console.log('Errore1:', error);
-      await setError({ ...error, password: 'Devi inserire una password.' });
-      noError = false;
+      errors = { ...errors, password: 'Devi inserire una password.' };
     }
 
     if (password.length < 8) {
-      console.log('Errore2:', error);
-      await setError({ ...error, password: 'La password deve contenere almeno 8 caratteri.' });
-      noError = false;
+      errors = { ...errors, password: 'La password deve contenere almeno 8 caratteri.' };
     }
-    return noError;
+
+    setError({ ...errors });
+    return Object.keys(errors).length === 0;
   };
 
-  const submit = async () => {
+  const submit = () => {
     setLoading(true);
-    await setError({ username: null, password: null });
 
     if (!validate()) {
       setLoading(false);
       return;
     }
+
     dispatch(loginAction(username, password))
       .then(() => {
         setLoading(false);
@@ -57,8 +55,8 @@ const LoginForm = ({ navigation }) => {
         navigation.navigate('Home');
       })
       .catch(err => {
+        setError({ ...err.fields });
         setLoading(false);
-        err.fields.forEach(field => setError({ ...error, ...field }));
       });
   };
 
