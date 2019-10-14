@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   wrapper: { marginTop: theme.utils.margin.base * 2 },
   input: { marginTop: theme.utils.margin.base * 4 },
   button: { marginTop: theme.utils.margin.base * 4 },
+  forgotLink: { ...theme.fonts.caption, marginTop: 4, alignSelf: 'flex-end' },
 });
 
 const LoginForm = ({ navigation }) => {
@@ -79,6 +80,9 @@ const LoginForm = ({ navigation }) => {
         error={error.password}
         secure
       />
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+        <Text style={styles.forgotLink}>Dimenticata?</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={submit}>
         <LinearGradient

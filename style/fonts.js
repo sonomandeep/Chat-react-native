@@ -31,6 +31,7 @@ const fonts = {
     color: colors.secondary,
   },
   inputError: { fontSize: 14, fontFamily: fontFamily.light, color: colors.error },
+  caption: { fontSize: 14, fontFamily: fontFamily.semiBold, color: colors.grayText },
 };
 
 export default fonts;
