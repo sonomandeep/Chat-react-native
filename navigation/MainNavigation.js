@@ -8,6 +8,7 @@ import HomeStack from './HomeStack';
 import LoadingScreen from '../screens/LoadingScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SignupScreen from '../screens/SignupScreen';
+import SignupSecondScreen from '../screens/SignupSecondScreen';
 import LoginStack from './LoginStack';
 
 const AppTabBar = createBottomTabNavigator(
@@ -36,8 +37,9 @@ const AuthSwitch = createStackNavigator(
   {
     Login: { screen: LoginStack, navigationOptions: { header: null } },
     Signup: { screen: SignupScreen, navigationOptions: { header: null } },
+    CompleteSignup: { screen: SignupSecondScreen, navigationOptions: { header: null } },
   },
-  { initialRouteName: 'Login' }
+  { initialRouteName: 'Signup' }
 );
 
 export default createAppContainer(

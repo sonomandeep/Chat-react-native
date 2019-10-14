@@ -3,17 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from '
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import LinearGradient from 'react-native-linear-gradient';
-import SignupForm from './SignupForm';
 import theme from '../../../style';
-import { TextInput } from '../../input';
+import CompleteSignupForm from './CompleteSignupForm';
 
 const styles = StyleSheet.create({
   wrapper: { flex: 1 },
   header: { marginTop: 50 },
-  inputWrapper: { marginTop: theme.utils.margin.base * 2 },
-  input: { marginTop: theme.utils.margin.base * 4 },
-  button: { marginTop: theme.utils.margin.base * 4 },
   footer: {
     marginTop: 18,
   },
@@ -24,29 +19,32 @@ const styles = StyleSheet.create({
   link: { marginLeft: 10, textDecorationLine: 'underline' },
 });
 
-const Signup = ({ navigation }) => {
+const CompleteSignup = ({ navigation }) => {
   return (
     <View style={{ ...theme.utils.screen.content, ...styles.wrapper }}>
       <KeyboardAvoidingView behavior="position">
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => console.log('Indietro')}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{ ...theme.components.backIcon }}
+          >
             <Icon
               color={theme.colors.secondary}
               size={theme.utils.sizes.backIcon}
               name="angle-left"
             />
           </TouchableOpacity>
-          <Text style={theme.fonts.title}>Iscriviti</Text>
-          <Text style={theme.fonts.headLine}>Benvenuto su Ermess!</Text>
+          <Text style={theme.fonts.title}>Accedi</Text>
+          <Text style={theme.fonts.headLine}>Bentornato su Ermess!</Text>
         </View>
 
-        <SignupForm />
+        <CompleteSignupForm />
 
         <View style={styles.footer}>
           <View style={styles.footerInner}>
-            <Text style={theme.fonts.grayText}>Sei già iscritto?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={{ ...theme.fonts.link, ...styles.link }}>Accedi!</Text>
+            <Text style={theme.fonts.grayText}>Non possiedi un account?</Text>
+            <TouchableOpacity onPress={() => console.log('Premuto')}>
+              <Text style={{ ...theme.fonts.link, ...styles.link }}>Iscriviti!</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -55,10 +53,11 @@ const Signup = ({ navigation }) => {
   );
 };
 
-Signup.propTypes = {
+CompleteSignup.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default withNavigation(Signup);
+export default withNavigation(CompleteSignup);
