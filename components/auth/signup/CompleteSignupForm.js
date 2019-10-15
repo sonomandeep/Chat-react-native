@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TextInput } from '../../input';
-import { loginAction, checkUsernameAction } from '../../../store/actions/userActions';
+import { checkUsernameAction, signupAction } from '../../../store/actions/userActions';
 import { getToken } from '../../../utils/notifications';
 import theme from '../../../style';
 
@@ -35,33 +35,12 @@ const validate = username => {
 };
 
 const CompleteSignupForm = ({ navigation }) => {
-  // L'utente deve inserire il nome utente e se vuole può inserire una foto profilo
-  // Vengono controllati eventuali errori
-  // Se non ci sono errori, tutti i dati verranno iniviati al server
-  // Per fare ciò devo creare un formData contenente i dati della schermata precedente
-  // e i dati inseriti in questa schermata
-
   const [username, setUsername] = useState('');
   const [error, setError] = useState({ username: null });
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const submit = async () => {
-    // if (!validate()) {
-    //   setLoading(false);
-    //   return;
-    // }
-    // dispatch(loginAction(username, password))
-    //   .then(() => {
-    //     setLoading(false);
-    //     getToken();
-    //     navigation.navigate('Home');
-    //   })
-    //   .catch(err => {
-    //     setError({ ...err.fields });
-    //     setLoading(false);
-    //   });
-
     setLoading(true);
     let errors = validate(username);
 
@@ -78,7 +57,15 @@ const CompleteSignupForm = ({ navigation }) => {
       return;
     }
 
-    console.log('Nome disponibile.');
+    try {
+      await dispatch(
+        signupAction(navigation.state.params.email, username, navigation.state.params.password)
+      );
+      navigation.navigate('Home');
+      getToken();
+    } catch (err) {
+      console.log('Errore:', err.response.error);
+    }
   };
 
   return (

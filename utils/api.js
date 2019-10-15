@@ -32,13 +32,17 @@ export const login = (username, password) => {
   );
 };
 
-export const signup = async (name, email, username, password) => {
-  return new Promise((resolve, reject) =>
-    axios
-      .post(SIGNUP_LINK, { email, name, username, password })
-      .then(res => resolve(res.data))
-      .catch(error => reject(error.response.data))
-  );
+// export const signup = async (name, email, username, password) => {
+//   return new Promise((resolve, reject) =>
+//     axios
+//       .post(SIGNUP_LINK, { email, name, username, password })
+//       .then(res => resolve(res.data))
+//       .catch(error => reject(error.response.data))
+//   );
+// };
+
+export const signup = (email, username, password) => {
+  return axios.post(SIGNUP_LINK, { email, username, password });
 };
 
 export const getUsers = (token, _id) => {

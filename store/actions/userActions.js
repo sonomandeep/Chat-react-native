@@ -35,14 +35,25 @@ export const checkUsernameAction = username => dispatch => {
   return checkUsername(username);
 };
 
-export const signupAction = (name, email, username, password) => async dispatch => {
+// export const signupAction = (name, email, username, password) => async dispatch => {
+//   return new Promise((resolve, reject) =>
+//     signup(name.trim(), email.trim(), username.trim(), password.trim())
+//       .then(({ payload }) => {
+//         dispatch({ type: 'SIGNUP', payload: { ...payload.user } });
+//         resolve(payload);
+//       })
+//       .catch(({ error }) => reject(error))
+//   );
+// };
+
+export const signupAction = (email, username, password) => async dispatch => {
   return new Promise((resolve, reject) =>
-    signup(name.trim(), email.trim(), username.trim(), password.trim())
-      .then(({ payload }) => {
-        dispatch({ type: 'SIGNUP', payload: { ...payload.user } });
-        resolve(payload);
+    signup(email.trim(), username.trim(), password.trim())
+      .then(({ data }) => {
+        dispatch({ type: 'SIGNUP', payload: { ...data.payload.user } });
+        resolve(data.payload);
       })
-      .catch(({ error }) => reject(error))
+      .catch(error => reject(error))
   );
 };
 

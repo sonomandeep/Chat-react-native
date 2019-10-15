@@ -34,7 +34,7 @@ const validate = (email, password, confirmPassword) => {
 };
 
 const SignupForm = ({ navigation }) => {
-  const [email, setEmail] = useState('m@gmail.com');
+  const [email, setEmail] = useState('prova14@gmail.com');
   const [password, setPassword] = useState('Test1234');
   const [confirmPassword, setConfirmPassword] = useState('Test1234');
   const [error, setError] = useState({ email: null, password: null, confirmPassword: null });
