@@ -28,6 +28,7 @@ const CustomTextInput = ({
   email,
   phone,
   number,
+  autoCapitalize,
 }) => {
   const [inputError, setError] = useState(error);
   const [isHidden, setHidden] = useState(secure);
@@ -60,6 +61,7 @@ const CustomTextInput = ({
           placeolderTextColor={placeholderColor}
           style={inputStyle}
           keyboardType={getKeyboardType()}
+          autoCapitalize={autoCapitalize ? 'sentences' : 'none'}
         />
         {secure && (
           <TouchableOpacity style={styles.toggle} onPress={() => setHidden(!isHidden)}>
@@ -78,11 +80,12 @@ CustomTextInput.propTypes = {
   style: PropTypes.instanceOf(Object).isRequired,
   placeholder: PropTypes.string.isRequired,
   placeholderColor: PropTypes.string,
+  error: PropTypes.string,
+  autoCapitalize: PropTypes.bool,
   email: PropTypes.bool,
   phone: PropTypes.bool,
   number: PropTypes.bool,
   secure: PropTypes.bool,
-  error: PropTypes.string,
 };
 
 CustomTextInput.defaultProps = {
@@ -91,6 +94,7 @@ CustomTextInput.defaultProps = {
   phone: false,
   number: false,
   secure: false,
+  autoCapitalize: false,
   error: '',
 };
 

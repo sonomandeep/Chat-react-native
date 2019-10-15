@@ -6,8 +6,10 @@ const components = {
   primaryButton: {
     button: {
       ...utils.center,
+      height: 50,
+      justifyContent: 'center',
       backgroundColor: colors.primary,
-      paddingVertical: 15,
+      // paddingVertical: 15,
       borderRadius: 500,
     },
     text: {

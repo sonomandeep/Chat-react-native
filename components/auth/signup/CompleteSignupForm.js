@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TextInput } from '../../input';
-import { loginAction } from '../../../store/actions/userActions';
+import { loginAction, checkUsernameAction } from '../../../store/actions/userActions';
 import { getToken } from '../../../utils/notifications';
 import theme from '../../../style';
 
@@ -26,6 +26,14 @@ const styles = StyleSheet.create({
   button: { marginTop: theme.utils.margin.base * 4 },
 });
 
+const validate = username => {
+  let errors = {};
+  if (!username) errors = { ...errors, username: 'Devi inserire un nome utente.' };
+  if (username.length < 3)
+    errors = { ...errors, username: 'Il  nome utente deve contenere almeno 3 caratteri.' };
+  return errors;
+};
+
 const CompleteSignupForm = ({ navigation }) => {
   // L'utente deve inserire il nome utente e se vuole può inserire una foto profilo
   // Vengono controllati eventuali errori
@@ -33,25 +41,12 @@ const CompleteSignupForm = ({ navigation }) => {
   // Per fare ciò devo creare un formData contenente i dati della schermata precedente
   // e i dati inseriti in questa schermata
 
-  console.log(navigation.state.params);
-
   const [username, setUsername] = useState('');
   const [error, setError] = useState({ username: null });
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const validate = () => {
-    let errors = {};
-    if (!username) {
-      errors = { ...errors, username: 'Devi inserire un nome utente.' };
-    }
-
-    setError({ ...errors });
-    return Object.keys(errors).length === 0;
-  };
-
-  const submit = () => {
-    // setLoading(true);
+  const submit = async () => {
     // if (!validate()) {
     //   setLoading(false);
     //   return;
@@ -66,6 +61,24 @@ const CompleteSignupForm = ({ navigation }) => {
     //     setError({ ...err.fields });
     //     setLoading(false);
     //   });
+
+    setLoading(true);
+    let errors = validate(username);
+
+    try {
+      await dispatch(checkUsernameAction(username));
+    } catch (err) {
+      errors = { ...errors, username: err.response.data.error.message };
+    }
+
+    setLoading(false);
+
+    if (Object.keys(errors).length > 0) {
+      setError(errors);
+      return;
+    }
+
+    console.log('Nome disponibile.');
   };
 
   return (

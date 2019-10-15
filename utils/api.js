@@ -9,11 +9,16 @@ import {
   VERIFY_RESET_PASSWORD,
   CHECK_EMAIL,
   getProfileUpdateLink,
+  CHECK_USERNAME,
   getProfileImageUpdateLink,
 } from '../constants/apiLinks';
 
 export const checkEmail = email => {
   return axios.post(CHECK_EMAIL, { email });
+};
+
+export const checkUsername = username => {
+  return axios.post(CHECK_USERNAME, { username });
 };
 
 export const login = (username, password) => {

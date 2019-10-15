@@ -34,26 +34,31 @@ const validate = (email, password, confirmPassword) => {
 };
 
 const SignupForm = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('m@gmail.com');
+  const [password, setPassword] = useState('Test1234');
+  const [confirmPassword, setConfirmPassword] = useState('Test1234');
   const [error, setError] = useState({ email: null, password: null, confirmPassword: null });
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const submit = async () => {
     setLoading(true);
-    const errors = validate(email, password, confirmPassword);
+    let errors = validate(email, password, confirmPassword);
 
     try {
-      setLoading(false);
       await dispatch(checkEmailACtion(email));
-      getToken();
-      navigation.navigate('CompleteSignup', { email, password, confirmPassword });
     } catch (err) {
-      setLoading(false);
-      setError({ ...errors, email: err.response.data.error.message });
+      errors = { ...errors, email: err.response.data.error.message };
     }
+
+    setLoading(false);
+
+    if (Object.keys(errors).length > 0) {
+      setError(errors);
+      return;
+    }
+
+    navigation.navigate('CompleteSignup', { email, password, confirmPassword });
   };
 
   return (

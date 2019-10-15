@@ -7,6 +7,7 @@ import {
   resetPassword,
   verifyResetPassword,
   checkEmail,
+  checkUsername,
 } from '../../utils/api';
 
 export const setUserAction = data => async dispatch => {
@@ -28,6 +29,10 @@ export const loginAction = (username, password) => async dispatch => {
 
 export const checkEmailACtion = email => dispatch => {
   return checkEmail(email);
+};
+
+export const checkUsernameAction = username => dispatch => {
+  return checkUsername(username);
 };
 
 export const signupAction = (name, email, username, password) => async dispatch => {

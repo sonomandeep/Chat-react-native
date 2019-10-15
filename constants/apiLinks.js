@@ -9,6 +9,7 @@ export const RESET_PASSWORD = `${API_LINK}/reset_password`;
 export const VERIFY_RESET_PASSWORD = `${API_LINK}/verify_reset_password`;
 export const FCM_SEND_NOTIFICATION = 'https://fcm.googleapis.com/fcm/send';
 export const CHECK_EMAIL = `${API_LINK}/signup/check_email`;
+export const CHECK_USERNAME = `${API_LINK}/signup/check_username`;
 
 export const getProfileUpdateLink = username => `${API_LINK}/${username}/update_info`;
 export const getProfileImageUpdateLink = username => `${API_LINK}/${username}/update_profile_image`;
